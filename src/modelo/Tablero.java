@@ -1,13 +1,58 @@
 package modelo;
 import java.util.ArrayList;
 
+import java.util.ArrayList;
+import modelo.Ficha;
+
 public class Tablero{
-	ArrayList<ArrayList<Ficha>> tablero; 
-	ArrayList<Ficha> fichasBolsa;
-	Jugador j1;
-	Jugador j2;
-	boolean gameover;
-	boolean turno;
+  Jugador j1,j2;
+  ArrayList<ArrayList<Ficha>> tablero;
+  boolean gameOver;
+  boolean turno;
+  ArraList<Ficha> bolsaFichas;
+
+  public Tablero(){
+    gameOver = false;
+    turno = false;
+    bolsaFichas = new ArrayList<Ficha>();
+  }
+  public Tablero(Jugador j1, Jugador j2){
+    this.j1 = j1;
+    this.j2 = j2;
+    tablero = new ArrayList<ArrayList<Ficha>>();
+
+    for (int i = 0; i < 11; i++) {
+      tablero.add(new ArrayList<Ficha>());
+    }
+
+    for (int i=0;i<11;i++ ) {
+      if(i<6){
+        for (int j=0;j<i+6;j++) {
+          if(i==0 && j==0){
+            tablero.get(i).add(new Ficha(i,j,null,1));
+          }else if(i==0 && j==5){
+            tablero.get(i).add(new Ficha(i,j,null,2));
+          }else if(i==5 && j==0){
+            tablero.get(i).add(new Ficha(i,j,null,3));
+          }else if(i==5 && j==10){
+            tablero.get(i).add(new Ficha(i,j,null,4));
+          }else{
+            tablero.get(i).add(new Ficha(i,j,null,0));
+          }
+        }
+      }else{
+        for (int j=0;j<16-i;j++) {
+          if(i==10 && j==0){
+            tablero.get(i).add(new Ficha(i,j,null,5));
+          }else if(i==10 && j==5){
+            tablero.get(i).add(new Ficha(i,j,null,6));
+          }else{
+            tablero.get(i).add(new Ficha(i,j,null,0));
+          }
+        }
+      }
+    }
+  }
 
 	//Funciones:
 	//Funcion principal (se manejan los turnos y la jugada)
