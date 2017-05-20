@@ -43,6 +43,8 @@ public class Jugador {
         fichasActuales.remove(ficha2);
         Ficha fichas[] = {ficha1, ficha2};
         return fichas;
+        //Probando git
+        //Probando uno, dos, tres
     }    //void actualizarpuntaje(int i, int puntaje) += 
     
     void actualizarPuntaje(int color, int puntaje){
