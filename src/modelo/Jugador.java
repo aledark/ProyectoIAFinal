@@ -34,18 +34,16 @@ public class Jugador {
         this.fichasActuales = fichasActuales;
     }
     
-    Ficha[] mover(Ficha ficha1, int fila1, int columna1, Ficha ficha2, int fila2, int columna2){
+    Ficha mover(Ficha ficha1, int fila1, int columna1, int fila2, int columna2){
         ficha1.setFila(fila1);
         ficha1.setColumna(columna1);
+        Ficha ficha2 = ficha1.getPareja();
         ficha2.setFila(fila2);
         ficha2.setColumna(columna2);
         fichasActuales.remove(ficha1);
         fichasActuales.remove(ficha2);
-        Ficha fichas[] = {ficha1, ficha2};
-        return fichas;
-        //Probando git
-        //Probando uno, dos, tres
-    }    //void actualizarpuntaje(int i, int puntaje) += 
+        return ficha1;   
+    } 
     
     void actualizarPuntaje(int color, int puntaje){
         puntosColor[color] += puntaje;
