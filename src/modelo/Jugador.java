@@ -34,17 +34,24 @@ public class Jugador {
         this.fichasActuales = fichasActuales;
     }
     
-    Ficha mover(Ficha ficha1, int fila1, int columna1, int fila2, int columna2){
-        ficha1.setFila(fila1);
-        ficha1.setColumna(columna1);
+    Ficha mover(Ficha ficha1, int posiciones[]){
+        ficha1.setFila(posiciones[0]);
+        ficha1.setColumna(posiciones[1]);
         Ficha ficha2 = ficha1.getPareja();
-        ficha2.setFila(fila2);
-        ficha2.setColumna(columna2);
+        ficha2.setFila(posiciones[2]);
+        ficha2.setColumna(posiciones[3]);
         fichasActuales.remove(ficha1);
         fichasActuales.remove(ficha2);
         return ficha1;   
     } 
     
+    void agregarFicha(Ficha fichaNueva){
+        if(fichaNueva!= null){
+            fichasActuales.add(fichaNueva);
+            fichasActuales.add(fichaNueva.getPareja());
+        }
+    }
+
     void actualizarPuntaje(int color, int puntaje){
         puntosColor[color] += puntaje;
     } 
