@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class Jugador {
     int puntosColor[];
     ArrayList<Ficha> fichasActuales;
-    
+    String nombre = "";
+
     public Jugador() {
         puntosColor = new int[6];
         for(int i = 0; i < puntosColor.length; i++) puntosColor[i] = 0;
@@ -18,6 +19,28 @@ public class Jugador {
         this.fichasActuales = fichasActuales;
     }
     
+    Ficha mover(Ficha ficha1, int posiciones[]){
+        ficha1.setFila(posiciones[0]);
+        ficha1.setColumna(posiciones[1]);
+        Ficha ficha2 = ficha1.getPareja();
+        ficha2.setFila(posiciones[2]);
+        ficha2.setColumna(posiciones[3]);
+        fichasActuales.remove(ficha1);
+        fichasActuales.remove(ficha2);
+        return ficha1;
+    }
+
+    void agregarFicha(Ficha fichaNueva){
+        if(fichaNueva!= null){
+            fichasActuales.add(fichaNueva);
+            fichasActuales.add(fichaNueva.getPareja());
+        }
+    }
+
+    void actualizarPuntaje(int color, int puntaje){
+        puntosColor[color] += puntaje;
+    }
+
     public int[] getPuntosColor() {
         return puntosColor;
     }
@@ -33,26 +56,12 @@ public class Jugador {
     public void setFichasActuales(ArrayList<Ficha> fichasActuales) {
         this.fichasActuales = fichasActuales;
     }
-    
-    Ficha mover(Ficha ficha1, int posiciones[]){
-        ficha1.setFila(posiciones[0]);
-        ficha1.setColumna(posiciones[1]);
-        Ficha ficha2 = ficha1.getPareja();
-        ficha2.setFila(posiciones[2]);
-        ficha2.setColumna(posiciones[3]);
-        fichasActuales.remove(ficha1);
-        fichasActuales.remove(ficha2);
-        return ficha1;   
-    } 
-    
-    void agregarFicha(Ficha fichaNueva){
-        if(fichaNueva!= null){
-            fichasActuales.add(fichaNueva);
-            fichasActuales.add(fichaNueva.getPareja());
-        }
-    }
 
-    void actualizarPuntaje(int color, int puntaje){
-        puntosColor[color] += puntaje;
-    } 
+    public String getNombre() {
+       return nombre;
+   }
+
+   public void setNombre(String nombre) {
+       this.nombre = nombre;
+   }
 }
