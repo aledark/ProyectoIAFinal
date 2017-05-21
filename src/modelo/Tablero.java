@@ -9,7 +9,7 @@ public class Tablero{
   ArrayList<ArrayList<Ficha>> tablero;
   boolean gameOver;
   boolean turno;
-  ArraList<Ficha> bolsaFichas;
+  ArrayList<Ficha> bolsaFichas;
 
   public Tablero(Jugador j1, Jugador j2){
     this.j1 = j1;
@@ -42,12 +42,12 @@ public class Tablero{
     tablero.get(5).get(10).setColor(4);
     tablero.get(10).get(0).setColor(5);
     tablero.get(10).get(5).setColor(6);
-
+    
   }
 
 	//Funciones:
 	//Funcion principal (se manejan los turnos y la jugada)
-	void juego(){
+	/*void juego(){
 		while(!gameover){
 			if(turno == true){
 				Ficha fichaJugada = seleccionarFicha(j1);
@@ -59,7 +59,7 @@ public class Tablero{
 				//Cambiar turno
 			}
 		}
-	}
+	}*/
 	//Validar puntos obtenidos dado una jugada (ficha obtenida del metodo mover en jugador)
 	//Validar gameover
 	//Obtener jugador ganador
