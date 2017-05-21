@@ -10,7 +10,7 @@ public class Jugador {
     public Jugador() {
         puntosColor = new int[6];
         for(int i = 0; i < puntosColor.length; i++) puntosColor[i] = 0;
-        fichasActuales = null;
+        fichasActuales = new ArrayList<Ficha>();
     }
 
     public Jugador(ArrayList<Ficha> fichasActuales) {
