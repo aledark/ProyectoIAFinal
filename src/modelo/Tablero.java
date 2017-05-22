@@ -2,6 +2,7 @@ package modelo;
 import java.util.ArrayList;
 
 import java.util.ArrayList;
+import java.util.Random;
 import modelo.Ficha;
 
 public class Tablero{
@@ -20,11 +21,9 @@ public class Tablero{
         bolsaFichas = new ArrayList<Ficha>();
         tablero = new ArrayList<ArrayList<Ficha>>();
         fichasEnTablero = new ArrayList<Ficha>();
-
         for (int i = 0; i < 11; i++) {
           tablero.add(new ArrayList<Ficha>());
         }
-
         for (int i=0;i<11;i++ ) {
           if(i<6){
             for (int j=0;j<i+6;j++) {
@@ -37,31 +36,38 @@ public class Tablero{
             }
           }
         }
-
         tablero.get(0).get(0).setColor(1);
         tablero.get(0).get(5).setColor(2);
         tablero.get(5).get(0).setColor(3);
         tablero.get(5).get(10).setColor(4);
         tablero.get(10).get(0).setColor(5);
         tablero.get(10).get(5).setColor(6);
-
+        
+        //tablero.get(10).get(5).setColor(4);
+        tablero.get(10).get(2).setColor(4);
+        tablero.get(10).get(1).setColor(4);
+        tablero.get(10).get(3).setColor(4);
+        tablero.get(9).get(4).setColor(4);
+        tablero.get(9).get(5).setColor(4);
     }
 
   	//Funciones:
   	//Funcion principal (se manejan los turnos y la jugada)
-    void juego(){
+    public void juego(){
         llenarBolsa();
-            /*while(!gameover){
+            while(!gameOver){
                     if(turno == true){
-                            Ficha fichaJugada = seleccionarFicha(j1);
-                            int posiciones[] = ingresarTurno();
+                            Ficha fichaJugada = new Ficha(); //= seleccionarFicha(j1);
+                            int posiciones[] = null;//ingresarTurno();
                             fichaJugada = j1.mover(fichaJugada, posiciones);
-                            j1.agregarFicha(generarFichaBolsa());
-                            //Calcular puntaje y sumarlo
+                            j1.agregarFicha(entregarFichaBolsa());
+                            actualizarTablero(fichaJugada);
+                            j1.actualizarPuntaje(fichaJugada.getColor(), calcularPuntaje(fichaJugada));
+                            j1.actualizarPuntaje(fichaJugada.getPareja().getColor(), calcularPuntaje(fichaJugada.getPareja()));
                             //Revisar si hay gameover
                             //Cambiar turno
                     }
-            }*/
+            }
   	}
 
     //Validar puntos obtenidos dado una jugada (ficha obtenida del metodo mover en jugador)
@@ -149,14 +155,17 @@ public class Tablero{
 
     //Funcion que permite obtener las fichas que tiene en la mano un jugador(Cuando haya vista, esto va en la vista)
     //Funcion que permite que un jugador ingrese las posiciones a mover (Es la que se va a llamar desde la vista, ingresa x1,y1,x2,y2) (cuando haya vista, esto va en la vista)
-  	//Funcion que valida si un movimiento es valido
-  	//Funcion que entregue, de la bolsa de fichas, una nueva ficha a un jugador
+    //Funcion que valida si un movimiento es valido
+
+    //Funcion que entregue, de la bolsa de fichas, una nueva ficha a un jugador
+    public Ficha entregarFichaBolsa(){
+        Random rand = new Random(); 
+        return bolsaFichas.get((int)(rand.nextDouble()*bolsaFichas.size()));
+    }
     
-  	//Funcion que llene la bolsa de fichas segun la distribucion que hay en el pdf
+    //Funcion que llene la bolsa de fichas segun la distribucion que hay en el pdf
     // El número depende del color, por ejemplo: 1 = Amarillo, 2 = Morado, 3 = Azul, 4 = Rojo
-                // 5 = Naranja y 6 = Verde
-
-
+    // 5 = Naranja y 6 = Verde
     public void llenarBolsa(){
         // Fichas del mismo simbolo
         for(int i = 0; i < 5; i++){  
@@ -167,8 +176,8 @@ public class Tablero{
             bolsaFichas.add(auxCrearPareja(5,5));//Naranjas
             bolsaFichas.add(auxCrearPareja(6,6));//Verdes
         }
-        //Rojo y otro color
         for(int i = 0; i < 6; i++){
+            //Rojo y otro color
             bolsaFichas.add(auxCrearPareja(4,1));//Amarilla
             bolsaFichas.add(auxCrearPareja(4,2));//Morada
             bolsaFichas.add(auxCrearPareja(4,3)); //Azul
@@ -191,10 +200,95 @@ public class Tablero{
         }
     }
 
-    public Ficha auxCrearPareja(int color1, color2){
+    public Ficha auxCrearPareja(int color1, int color2){
         Ficha ficha1 = new Ficha(-1,-1,null, color1);
-        Ficha fichaA2 = new Ficha(-1,-1,ficha1, color2);
+        Ficha ficha2 = new Ficha(-1,-1,ficha1, color2);
         ficha1.setPareja(ficha2);
         return ficha1;
+    }
+
+    private int calcularPuntaje(Ficha fichaJugada) {
+        int fila = fichaJugada.getFila();
+        int columna = fichaJugada.getColumna();
+        int puntos = 0;
+        //Revisar superior izquierda
+        int filaAux = fila-1;
+        int columnaAux = columna-1;
+        while(filaAux >= 0 && columna >= 0){
+            if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                puntos++;
+                filaAux--;
+                columnaAux--;
+            }
+            else break;
+        }
+        //Revisar superior derecha
+        filaAux = fila-1;
+        columnaAux = columna;
+        while(filaAux >= 0 && columnaAux < tablero.get(filaAux).size()){
+            if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                puntos++;
+                filaAux--;
+            }
+            else break;
+        }
+        //Revisar Izquierda
+        filaAux = fila;
+        columnaAux = columna-1;
+         while(columnaAux >= 0){
+            if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                puntos++;
+                columnaAux--;
+            }
+            else break;
+        }
+        //Revisar inferior izquierda
+        filaAux = fila+1;
+        columnaAux = columna;
+         while(filaAux < tablero.size() && columnaAux < tablero.get(filaAux).size()){
+            if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                puntos++;
+                filaAux++;
+            }
+            else break;
+        }
+        //Revisar inferior derecha
+        filaAux = fila+1;
+        columnaAux = columna+1;
+         while(filaAux < tablero.size() && columnaAux < tablero.get(filaAux).size()){
+            if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                puntos++;
+                filaAux++;
+                columnaAux++;
+            }
+            else break;
+        }
+        //Revisar inferior derecha
+        filaAux = fila;
+        columnaAux = columna+1;
+         while(columnaAux < tablero.get(filaAux).size()){
+            if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                puntos++;
+                columnaAux++;
+            }
+            else break;
+        }
+        return puntos;
+    }
+
+    private void actualizarTablero(Ficha fichaJugada) {
+        tablero.get(fichaJugada.getFila()).get(fichaJugada.getColumna()).setColor(fichaJugada.getColor());
+        tablero.get(fichaJugada.getFila()).get(fichaJugada.getColumna()).setPareja(fichaJugada.getPareja());
+        tablero.get(fichaJugada.getPareja().getFila()).get(fichaJugada.getPareja().getColumna()).setColor(fichaJugada.getPareja().getColor());
+        tablero.get(fichaJugada.getPareja().getFila()).get(fichaJugada.getPareja().getColumna()).setPareja(fichaJugada);
+    }
+    public void prueba(Ficha f){
+        System.out.println(calcularPuntaje(f));
+    }
+    public static void main(String args[]){
+        Tablero t = new Tablero(null, null);
+        Ficha f = new Ficha(10, 4, null, 4);
+        t.prueba(f);
+        
     }
 }
