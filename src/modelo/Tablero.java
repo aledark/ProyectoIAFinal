@@ -48,7 +48,7 @@ public class Tablero{
         tablero.get(10).get(1).setColor(4);
         tablero.get(10).get(3).setColor(4);
         tablero.get(9).get(4).setColor(4);
-        tablero.get(9).get(5).setColor(4);
+        tablero.get(9).get(0).setColor(4);
     }
 
   	//Funciones:
@@ -211,68 +211,199 @@ public class Tablero{
         int fila = fichaJugada.getFila();
         int columna = fichaJugada.getColumna();
         int puntos = 0;
-        //Revisar superior izquierda
-        int filaAux = fila-1;
-        int columnaAux = columna-1;
-        while(filaAux >= 0 && columna >= 0){
-            if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                puntos++;
-                filaAux--;
-                columnaAux--;
+        if(fila <=4){
+             //Revisar superior izquierda
+            int filaAux = fila-1;
+            int columnaAux = columna-1;
+            while(filaAux >= 0 && columna >= 0){
+                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                    puntos++;
+                    filaAux--;
+                    columnaAux--;
+                }
+                else break;
             }
-            else break;
-        }
-        //Revisar superior derecha
-        filaAux = fila-1;
-        columnaAux = columna;
-        while(filaAux >= 0 && columnaAux < tablero.get(filaAux).size()){
-            if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                puntos++;
-                filaAux--;
+            //Revisar superior derecha
+            filaAux = fila-1;
+            columnaAux = columna;
+            while(filaAux >= 0 && columnaAux < tablero.get(filaAux).size()){
+                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                    puntos++;
+                    filaAux--;
+                }
+                else break;
             }
-            else break;
-        }
-        //Revisar Izquierda
-        filaAux = fila;
-        columnaAux = columna-1;
-         while(columnaAux >= 0){
-            if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                puntos++;
-                columnaAux--;
+            //Revisar Izquierda
+            filaAux = fila;
+            columnaAux = columna-1;
+             while(columnaAux >= 0){
+                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                    puntos++;
+                    columnaAux--;
+                }
+                else break;
             }
-            else break;
-        }
-        //Revisar inferior izquierda
-        filaAux = fila+1;
-        columnaAux = columna;
-         while(filaAux < tablero.size() && columnaAux < tablero.get(filaAux).size()){
-            if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                puntos++;
-                filaAux++;
+            //Revisar inferior izquierda
+            filaAux = fila+1;
+            columnaAux = columna;
+             while(filaAux < tablero.size() && columnaAux < tablero.get(filaAux).size()){
+                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                    puntos++;
+                    filaAux++;
+                }
+                else break;
             }
-            else break;
-        }
-        //Revisar inferior derecha
-        filaAux = fila+1;
-        columnaAux = columna+1;
-         while(filaAux < tablero.size() && columnaAux < tablero.get(filaAux).size()){
-            if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                puntos++;
-                filaAux++;
-                columnaAux++;
+            //Revisar inferior derecha
+            filaAux = fila+1;
+            columnaAux = columna+1;
+             while(filaAux < tablero.size() && columnaAux < tablero.get(filaAux).size()){
+                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                    puntos++;
+                    filaAux++;
+                    columnaAux++;
+                }
+                else break;
             }
-            else break;
-        }
-        //Revisar inferior derecha
-        filaAux = fila;
-        columnaAux = columna+1;
-         while(columnaAux < tablero.get(filaAux).size()){
-            if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                puntos++;
-                columnaAux++;
+            //Revisar  derecha
+            filaAux = fila;
+            columnaAux = columna+1;
+             while(columnaAux < tablero.get(filaAux).size()){
+                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                    puntos++;
+                    columnaAux++;
+                }
+                else break;
             }
-            else break;
         }
+        else if(fila >=6){
+            //Revisar superior izquierda
+            int filaAux = fila-1;
+            int columnaAux = columna;
+            while(filaAux >= 0 && columna >= 0){
+                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                    puntos++;
+                    filaAux--;
+                }
+                else break;
+            }
+            //Revisar superior derecha
+            filaAux = fila-1;
+            columnaAux = columna+1;
+            while(filaAux >= 0 && columnaAux < tablero.get(filaAux).size()){
+                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                    puntos++;
+                    filaAux--;
+                    columnaAux++;
+                }
+                else break;
+            }
+            //Revisar Izquierda
+            filaAux = fila;
+            columnaAux = columna-1;
+             while(columnaAux >= 0){
+                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                    puntos++;
+                    columnaAux--;
+                }
+                else break;
+            }
+            //Revisar inferior izquierda
+            filaAux = fila+1;
+            columnaAux = columna-1;
+             while(filaAux < tablero.size() && columnaAux >= 0){
+                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                    puntos++;
+                    filaAux++;
+                    columnaAux--;
+                }
+                else break;
+            }
+            //Revisar inferior derecha
+            filaAux = fila+1;
+            columnaAux = columna;
+             while(filaAux < tablero.size() && columnaAux < tablero.get(filaAux).size()){
+                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                    puntos++;
+                    filaAux++;
+                }
+                else break;
+            }
+            //Revisar  derecha
+            filaAux = fila;
+            columnaAux = columna+1;
+             while(columnaAux < tablero.get(filaAux).size()){
+                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                    puntos++;
+                    columnaAux++;
+                }
+                else break;
+            }
+        }
+        else{
+             //Revisar superior izquierda
+            int filaAux = fila-1;
+            int columnaAux = columna-1;
+            while(filaAux >= 0 && columna >= 0){
+                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                    puntos++;
+                    filaAux--;
+                    columnaAux--;
+                }
+                else break;
+            }
+            //Revisar superior derecha
+            filaAux = fila-1;
+            columnaAux = columna;
+            while(filaAux >= 0 && columnaAux < tablero.get(filaAux).size()){
+                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                    puntos++;
+                    filaAux--;
+                }
+                else break;
+            }
+            //Revisar Izquierda
+            filaAux = fila;
+            columnaAux = columna-1;
+             while(columnaAux >= 0){
+                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                    puntos++;
+                    columnaAux--;
+                }
+                else break;
+            }
+            //Revisar inferior izquierda
+            filaAux = fila+1;
+            columnaAux = columna-1;
+             while(filaAux < tablero.size() && columnaAux >= 0){
+                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                    puntos++;
+                    filaAux++;
+                    columnaAux--;
+                }
+                else break;
+            }
+            //Revisar inferior derecha
+            filaAux = fila+1;
+            columnaAux = columna;
+             while(filaAux < tablero.size() && columnaAux < tablero.get(filaAux).size()){
+                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                    puntos++;
+                    filaAux++;
+                }
+                else break;
+            }
+            //Revisar  derecha
+            filaAux = fila;
+            columnaAux = columna+1;
+             while(columnaAux < tablero.get(filaAux).size()){
+                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
+                    puntos++;
+                    columnaAux++;
+                }
+                else break;
+            }
+        }
+       
         return puntos;
     }
 
@@ -287,7 +418,7 @@ public class Tablero{
     }
     public static void main(String args[]){
         Tablero t = new Tablero(null, null);
-        Ficha f = new Ficha(10, 4, null, 4);
+        Ficha f = new Ficha(10, 0, null, 4);
         t.prueba(f);
         
     }
