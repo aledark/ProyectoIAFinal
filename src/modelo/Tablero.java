@@ -25,16 +25,16 @@ public class Tablero{
           tablero.add(new ArrayList<Ficha>());
         }
         for (int i=0;i<11;i++ ) {
-          if(i<6){
-            for (int j=0;j<i+6;j++) {
-              tablero.get(i).add(new Ficha(i,j,null,0));
-            }
-          }else{
-            for (int j=0;j<16-i;j++) {
-              tablero.get(i).add(new Ficha(i,j,null,0));
+            if(i<6){
+                for (int j=0;j<i+6;j++) {
+                    tablero.get(i).add(new Ficha(i,j,null,0));
+                }
+            }else{
+                for (int j=0;j<16-i;j++) {
+                    tablero.get(i).add(new Ficha(i,j,null,0));
 
+                }
             }
-          }
         }
         tablero.get(0).get(0).setColor(1);
         tablero.get(0).get(5).setColor(2);
@@ -62,17 +62,111 @@ public class Tablero{
                             fichaJugada = j1.mover(fichaJugada, posiciones);
                             j1.agregarFicha(entregarFichaBolsa());
                             actualizarTablero(fichaJugada);
+                            fichasEnTablero.add(fichaJugada);
                             j1.actualizarPuntaje(fichaJugada.getColor(), calcularPuntaje(fichaJugada));
                             j1.actualizarPuntaje(fichaJugada.getPareja().getColor(), calcularPuntaje(fichaJugada.getPareja()));
-                            //Revisar si hay gameover
-                            //Cambiar turno
+                            validarGameOver();
+                            turno = !turno;
+                    }
+                    else { //Lo mismo pero con j2
+                        
                     }
             }
   	}
-
-    //Validar puntos obtenidos dado una jugada (ficha obtenida del metodo mover en jugador)
-
-    //Validar gameover
+     //Validar gameover
+    public void validarGameOver(){
+        boolean respuesta = false;
+        for(int i = 0; i < tablero.size() && !respuesta; i++){
+            for(int j = 0; j < tablero.get(i).size() && !respuesta; i++){
+                if(tablero.get(i).get(j).getColor() == 0){
+                    if(validarEspacio(tablero.get(i).get(j))) respuesta = true;
+                }
+            }
+        }
+    }
+    public boolean validarEspacio(Ficha ficha){
+        int fila = ficha.getFila();
+        int columna = ficha.getColumna();
+        if(fila <=4){
+            //Revisar superior izquierda
+            if(fila > 0 && columna > 0){    
+                if(tablero.get(fila-1).get(columna-1).getColor()==0) return true;
+            }
+            //Revisar superior derecha
+            if(fila > 0 && columna < tablero.get(fila).size()){
+                if(tablero.get(fila-1).get(columna).getColor() == 0) return true;
+            }
+            //Revisar Izquierda
+            if(columna > 0){
+                if(tablero.get(fila).get(columna-1).getColor() == 0) return true;
+            }
+            //Revisar inferior izquierda
+            if(fila < tablero.size() && columna < tablero.get(fila).size()){
+                if(tablero.get(fila+1).get(columna).getColor() == 0) return true;
+            }
+            //Revisar inferior derecha
+            if(fila < tablero.size() && columna < tablero.get(fila).size()){
+                if(tablero.get(fila+1).get(columna+1).getColor() == 0) return true;
+            }
+            //Revisar  derecha
+            if(columna < tablero.get(fila).size()){
+                if(tablero.get(fila).get(columna).getColor() == 0) return true;
+            }
+        }
+        if(fila >= 6){
+            //Revisar superior izquierda
+            if(fila > 0 && columna > 0){
+                if(tablero.get(fila-1).get(columna).getColor() == 0) return true;
+            }
+            //Revisar superior derecha
+            if(fila > 0 && columna < tablero.get(fila).size()){
+                if(tablero.get(fila-1).get(columna+1).getColor() == 0) return true;
+            }
+            //Revisar Izquierda
+            if(columna > 0){
+                if(tablero.get(fila).get(columna-1).getColor() == 0) return true;
+            }
+            //Revisar inferior izquierda
+            if(fila < tablero.size() && columna > 0){
+                if(tablero.get(fila+1).get(columna-1).getColor() == 0) return true;
+            }
+            //Revisar inferior derecha
+            if(fila < tablero.size() && columna < tablero.get(fila).size()){
+                if(tablero.get(fila+1).get(columna).getColor() == 0) return true;
+            }
+            //Revisar  derecha
+            if(columna < tablero.get(fila).size()){
+                if(tablero.get(fila).get(columna+1).getColor() == 0) return true;
+            }
+        }
+        else{
+            //Revisar superior izquierda
+            if(fila > 0 && columna > 0){    
+                if(tablero.get(fila-1).get(columna-1).getColor()==0) return true;
+            }
+            //Revisar superior derecha
+            if(fila > 0 && columna < tablero.get(fila).size()){
+                if(tablero.get(fila-1).get(columna).getColor() == 0) return true;
+            }
+            //Revisar Izquierda
+            if(columna > 0){
+                if(tablero.get(fila).get(columna-1).getColor() == 0) return true;
+            }
+            //Revisar inferior izquierda
+            if(fila < tablero.size() && columna > 0){
+                if(tablero.get(fila+1).get(columna-1).getColor() == 0) return true;
+            }
+            //Revisar inferior derecha
+            if(fila < tablero.size() && columna < tablero.get(fila).size()){
+                if(tablero.get(fila+1).get(columna).getColor() == 0) return true;
+            }
+            //Revisar  derecha
+            if(columna < tablero.get(fila).size()){
+                if(tablero.get(fila).get(columna+1).getColor() == 0) return true;
+            }
+        }
+        return false;
+    }
 
     //Obtener jugador ganador
     public Jugador jugadorGanador(){
@@ -150,12 +244,22 @@ public class Tablero{
         this.bolsaFichas = bolsaFichas;
     }
 
-    //Funcion que permite seleccionar una ficha dentro de las fichas que tiene el jugador en la mano (le entra el jugador y retorna la ficha seleccionada)
+     //Funcion que permite seleccionar una ficha dentro de las fichas que tiene el jugador en la mano (le entra el jugador y retorna la ficha seleccionada)
     
 
-    //Funcion que permite obtener las fichas que tiene en la mano un jugador(Cuando haya vista, esto va en la vista)
+    //Funcion que permite obtener las fichas que tiene en la mano un jugador
+    public ArrayList<Ficha> getFichasJugador(int j){
+        if(j == 1) return j1.getFichasActuales();
+        else return j2.getFichasActuales();
+    }
+    
+    //Funcion que permite obtener los puntos de un jugador
+    public int[] getPuntosJugador(int j){
+        if(j == 1) return j1.getPuntosColor();
+        else return j2.getPuntosColor();
+    }
+    
     //Funcion que permite que un jugador ingrese las posiciones a mover (Es la que se va a llamar desde la vista, ingresa x1,y1,x2,y2) (cuando haya vista, esto va en la vista)
-    //Funcion que valida si un movimiento es valido
 
     //Funcion que entregue, de la bolsa de fichas, una nueva ficha a un jugador
     public Ficha entregarFichaBolsa(){
@@ -416,10 +520,10 @@ public class Tablero{
     public void prueba(Ficha f){
         System.out.println(calcularPuntaje(f));
     }
-    public static void main(String args[]){
+   /* public static void main(String args[]){
         Tablero t = new Tablero(null, null);
         Ficha f = new Ficha(10, 0, null, 4);
         t.prueba(f);
         
-    }
+    }*/
 }
