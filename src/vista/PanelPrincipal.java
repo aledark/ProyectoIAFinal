@@ -9,7 +9,6 @@ import controlador.Controlador;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
-
 /**
  *
  * @author Jennifer
@@ -25,7 +24,9 @@ public class PanelPrincipal extends javax.swing.JPanel {
     BotonHexagonal boton;
     public PanelPrincipal() {
         initComponents();
-        casillaVacia = new ImageIcon(getClass().getResource("/imagenes/hexagonoBase.png"));
+        this.setBackground(new Color(17, 202, 255));
+        hexagonos = new ArrayList<ArrayList<BotonHexagonal>>();
+        casillaVacia = new ImageIcon(getClass().getResource("/imagenes/hexagonoBase50.png"));
         controlador = new Controlador(this);
         crearTablero(controlador);
     }
@@ -33,13 +34,46 @@ public class PanelPrincipal extends javax.swing.JPanel {
         return hexagonos;
     }
     public void crearTablero(Controlador controlador){
-        boton = new BotonHexagonal(Color.red, Color.red, casillaVacia);
+        /*boton = new BotonHexagonal(Color.red, Color.red, casillaVacia);
         boton.setBounds(50, 50, 100, 100);
-        boton.addActionListener(controlador);
-        this.add(boton);
+        boton.addActionListener(controlador);*/
+//        this.add(boton);
+        int x = 100;
+        int y = 0;
+        for (int i=0;i<11;i++ ) {
+            if(i<6){
+                ArrayList<BotonHexagonal> arreglo = new ArrayList<BotonHexagonal>();
+                for (int j=0;j<i+6;j++) {
+                    BotonHexagonal b = new BotonHexagonal(Color.red, Color.red, casillaVacia);
+                    b.setBounds(50+x, 50+y, 50 , 50);
+                    b.addActionListener(controlador);
+                    arreglo.add(b);
+                    this.add(b);
+                    x+=52;
+                }
+                hexagonos.add(arreglo);
+                y+=40;
+                x=100-(25*(i+1));
+                if(i==5) x+=50;
+            }else{
+                ArrayList<BotonHexagonal> arreglo = new ArrayList<BotonHexagonal>();
+                for (int j=0;j<16-i;j++) {
+                    BotonHexagonal b = new BotonHexagonal(Color.red, Color.red, casillaVacia);
+                    b.setBounds(50+x, 50+y, 50 , 50);
+                    b.addActionListener(controlador);
+                    arreglo.add(b);
+                    this.add(b);
+                    x+=52;
+                }
+                hexagonos.add(arreglo);
+                y+=40;
+                x=0+(25*(i-5));
+            }
+        }
+
     }
-    public BotonHexagonal getBoton(){
-        return boton;
+    public ArrayList<ArrayList<BotonHexagonal>> getBotones(){
+        return hexagonos;
     }
 
     /**

@@ -42,6 +42,8 @@ public class Tablero{
         tablero.get(5).get(10).setColor(4);
         tablero.get(10).get(0).setColor(5);
         tablero.get(10).get(5).setColor(6);
+        // El número depende del color, por ejemplo: 1 = Amarillo, 2 = Morado, 3 = Azul, 4 = Rojo
+                // 5 = Naranja y 6 = Verde
         
         //tablero.get(10).get(5).setColor(4);
         tablero.get(10).get(2).setColor(4);

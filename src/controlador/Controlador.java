@@ -22,7 +22,8 @@ public class Controlador implements ActionListener{
         this.panel = panel;
     }
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) { 
+        
         ArrayList<ArrayList<BotonHexagonal>> botones = panel.getBotones();
         for(int i = 0; i < botones.size(); i++){
             for (int j = 0; j < botones.get(i).size(); j++) {
