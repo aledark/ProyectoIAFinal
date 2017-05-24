@@ -26,14 +26,12 @@ public class Jugador {
         ficha2.setFila(posiciones[2]);
         ficha2.setColumna(posiciones[3]);
         fichasActuales.remove(ficha1);
-        fichasActuales.remove(ficha2);
         return ficha1;
     }
 
     void agregarFicha(Ficha fichaNueva){
         if(fichaNueva!= null){
             fichasActuales.add(fichaNueva);
-            fichasActuales.add(fichaNueva.getPareja());
         }
     }
 

@@ -16,6 +16,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
      */
     public VistaPrincipal() {
         initComponents();
+        setResizable(false);
     }
 
     /**
@@ -30,20 +31,19 @@ public class VistaPrincipal extends javax.swing.JFrame {
         panelPrincipal1 = new vista.PanelPrincipal();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         javax.swing.GroupLayout panelPrincipal1Layout = new javax.swing.GroupLayout(panelPrincipal1);
         panelPrincipal1.setLayout(panelPrincipal1Layout);
         panelPrincipal1Layout.setHorizontalGroup(
             panelPrincipal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 990, Short.MAX_VALUE)
+            .addGap(0, 1350, Short.MAX_VALUE)
         );
         panelPrincipal1Layout.setVerticalGroup(
             panelPrincipal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 790, Short.MAX_VALUE)
+            .addGap(0, 700, Short.MAX_VALUE)
         );
 
-        getContentPane().add(panelPrincipal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 790));
+        getContentPane().add(panelPrincipal1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

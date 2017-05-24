@@ -31,7 +31,13 @@ public class Controlador implements ActionListener{
                     System.out.println("Usted esta espachurrando el boton "+i+" "+j);
                 }
             }
-        }        
+        } 
+        ArrayList<BotonHexagonal> fichasJugador = panel.getFichasMano();
+        for (int i = 0; i < fichasJugador.size(); i++) {
+            if(e.getSource() == fichasJugador.get(i)){
+                    System.out.println("Usted esta espachurrando la ficha numero "+i);
+            }
+        }
     }
     
 }

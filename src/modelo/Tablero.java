@@ -42,8 +42,6 @@ public class Tablero{
         tablero.get(5).get(10).setColor(4);
         tablero.get(10).get(0).setColor(5);
         tablero.get(10).get(5).setColor(6);
-        // El número depende del color, por ejemplo: 1 = Amarillo, 2 = Morado, 3 = Azul, 4 = Rojo
-                // 5 = Naranja y 6 = Verde
         
         //tablero.get(10).get(5).setColor(4);
         tablero.get(10).get(2).setColor(4);
@@ -57,7 +55,8 @@ public class Tablero{
   	//Funcion principal (se manejan los turnos y la jugada)
     public void juego(){
         llenarBolsa();
-            while(!gameOver){
+        inicializarManos();
+            /*while(!gameOver){
                     if(turno == true){
                             Ficha fichaJugada = new Ficha(); //= seleccionarFicha(j1);
                             int posiciones[] = null;//ingresarTurno();
@@ -73,9 +72,18 @@ public class Tablero{
                     else { //Lo mismo pero con j2
                         
                     }
-            }
-  	}
-     //Validar gameover
+            }*/
+        
+    }
+    
+    //Inicializar manos de los jugadores
+    public void inicializarManos(){
+        for(int i = 0; i < 6; i++){
+            j1.agregarFicha(entregarFichaBolsa());
+            j2.agregarFicha(entregarFichaBolsa());
+        }
+    }
+    //Validar gameover
     public void validarGameOver(){
         boolean respuesta = false;
         for(int i = 0; i < tablero.size() && !respuesta; i++){
@@ -86,6 +94,7 @@ public class Tablero{
             }
         }
     }
+    
     public boolean validarEspacio(Ficha ficha){
         int fila = ficha.getFila();
         int columna = ficha.getColumna();
@@ -197,7 +206,7 @@ public class Tablero{
         return ganador;
     }
 
-  	//Setters y getters
+  //Setters y getters
     public Jugador getJ1() {
         return j1;
     }
@@ -266,7 +275,9 @@ public class Tablero{
     //Funcion que entregue, de la bolsa de fichas, una nueva ficha a un jugador
     public Ficha entregarFichaBolsa(){
         Random rand = new Random(); 
-        return bolsaFichas.get((int)(rand.nextDouble()*bolsaFichas.size()));
+        Ficha ficha = bolsaFichas.get((int)(rand.nextDouble()*bolsaFichas.size()));
+        bolsaFichas.remove(ficha);
+        return ficha;
     }
     
     //Funcion que llene la bolsa de fichas segun la distribucion que hay en el pdf
@@ -519,9 +530,11 @@ public class Tablero{
         tablero.get(fichaJugada.getPareja().getFila()).get(fichaJugada.getPareja().getColumna()).setColor(fichaJugada.getPareja().getColor());
         tablero.get(fichaJugada.getPareja().getFila()).get(fichaJugada.getPareja().getColumna()).setPareja(fichaJugada);
     }
+    
     public void prueba(Ficha f){
         System.out.println(calcularPuntaje(f));
     }
+    
    /* public static void main(String args[]){
         Tablero t = new Tablero(null, null);
         Ficha f = new Ficha(10, 0, null, 4);
