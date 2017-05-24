@@ -32,8 +32,10 @@ public class BotonHexagonal extends JButton{
             g.setColor(colorFondo);
         }
         
-        int puntosx2[] = {50,95,95,50,5,5};
-        int puntosy2[] = {0,33,66,100,66,33};
+        int puntosx2[] = {25,50,50,25,0,0};
+        int puntosy2[] = {0,13,31,50,31,13};
+        //int puntosx2[] = {50,100,100,50,0,0};
+        //int puntosy2[] = {0,26,73,100,73,26};
         
         g.fillPolygon(puntosx2, puntosy2, 6);
         
@@ -46,8 +48,8 @@ public class BotonHexagonal extends JButton{
         int puntosx[] = {50,100,0};
         int puntosy[] = {0,100,100};
         
-        int puntosx2[] = {50,95,95,50,5,5};
-        int puntosy2[] = {0,33,66,100,66,33};
+        int puntosx2[] = {25,50,50,25,0,0};
+        int puntosy2[] = {0,13,31,50,31,13};
         
         //System.out.println(puntosx[0]+"");
         

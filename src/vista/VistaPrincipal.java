@@ -36,14 +36,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
         panelPrincipal1.setLayout(panelPrincipal1Layout);
         panelPrincipal1Layout.setHorizontalGroup(
             panelPrincipal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 980, Short.MAX_VALUE)
+            .addGap(0, 990, Short.MAX_VALUE)
         );
         panelPrincipal1Layout.setVerticalGroup(
             panelPrincipal1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 780, Short.MAX_VALUE)
+            .addGap(0, 790, Short.MAX_VALUE)
         );
 
-        getContentPane().add(panelPrincipal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 980, 780));
+        getContentPane().add(panelPrincipal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 790));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

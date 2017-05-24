@@ -7,6 +7,8 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import vista.BotonHexagonal;
 import vista.PanelPrincipal;
 import vista.VistaPrincipal;
 
@@ -21,9 +23,14 @@ public class Controlador implements ActionListener{
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == panel.getBoton()){
-            System.out.println("Me espachurraron");
-        }
+        ArrayList<ArrayList<BotonHexagonal>> botones = panel.getBotones();
+        for(int i = 0; i < botones.size(); i++){
+            for (int j = 0; j < botones.get(i).size(); j++) {
+                if(e.getSource() == botones.get(i).get(j)){
+                    System.out.println("Usted esta espachurrando el boton "+i+" "+j);
+                }
+            }
+        }        
     }
     
 }
