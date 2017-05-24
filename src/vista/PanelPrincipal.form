@@ -16,35 +16,13 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="393" max="-2" attributes="0"/>
-              <Component id="buscame" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="912" max="32767" attributes="0"/>
-          </Group>
+          <EmptySpace min="0" pref="1350" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="257" max="-2" attributes="0"/>
-              <Component id="buscame" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="424" max="32767" attributes="0"/>
-          </Group>
+          <EmptySpace min="0" pref="700" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
-  <SubComponents>
-    <Component class="javax.swing.JButton" name="buscame">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jButton1"/>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-            <EtchetBorder/>
-          </Border>
-        </Property>
-        <Property name="borderPainted" type="boolean" value="false"/>
-        <Property name="contentAreaFilled" type="boolean" value="false"/>
-      </Properties>
-    </Component>
-  </SubComponents>
 </Form>

@@ -44,11 +44,11 @@ public class Tablero{
         tablero.get(10).get(5).setColor(6);
         
         //tablero.get(10).get(5).setColor(4);
-        tablero.get(10).get(2).setColor(4);
+        /*tablero.get(10).get(2).setColor(4);
         tablero.get(10).get(1).setColor(4);
         tablero.get(10).get(3).setColor(4);
         tablero.get(9).get(4).setColor(4);
-        tablero.get(9).get(0).setColor(4);
+        tablero.get(9).get(0).setColor(4);*/
     }
 
   	//Funciones:

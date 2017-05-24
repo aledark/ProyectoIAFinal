@@ -40,7 +40,13 @@ public class PanelPrincipal extends javax.swing.JPanel {
     Jugador j2;
     public PanelPrincipal() {
         initComponents();
+        
         this.setBackground(new Color(197, 197, 197));
+        //Creando paneles
+        /*JPanel panelFichas = new JPanel();
+        panelFichas.setBounds(30, 550, 550, 140);
+        panelFichas.setBackground(Color.WHITE);
+        add(panelFichas);*/
         //Inicializar imagenes
         casillaVacia = new ImageIcon(getClass().getResource("/imagenes/hexagonoBase50.png"));
         fichaAmarilla = new ImageIcon(getClass().getResource("/imagenes/Amarillo50.png"));
@@ -80,6 +86,9 @@ public class PanelPrincipal extends javax.swing.JPanel {
     public ArrayList<BotonHexagonal> getFichasMano(){
         return manoJugador;
     }
+    public ArrayList<ArrayList<Ficha>> getTablero(){
+        return tablero.getTablero();
+    }
     public void crearTablero(){
         int x = 100;
         int y = 0;
@@ -89,7 +98,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
                 for (int j=0;j<i+6;j++) {
                     BotonHexagonal b = new BotonHexagonal(Color.red, Color.red, casillaVacia);
                     b.setBounds(50+x, 50+y, 50 , 50);
-                    b.addActionListener(controlador);
+                    b.addMouseListener(controlador);
                     arreglo.add(b);
                     this.add(b);
                     x+=52;
@@ -103,7 +112,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
                 for (int j=0;j<16-i;j++) {
                     BotonHexagonal b = new BotonHexagonal(Color.red, Color.red, casillaVacia);
                     b.setBounds(50+x, 50+y, 50 , 50);
-                    b.addActionListener(controlador);
+                    b.addMouseListener(controlador);
                     arreglo.add(b);
                     this.add(b);
                     x+=52;
@@ -124,17 +133,18 @@ public class PanelPrincipal extends javax.swing.JPanel {
         return hexagonos;
     }
     public void dibujarFichasMano(){
+        manoJugador.clear();
         ArrayList<Ficha> fichas = j1.getFichasActuales();
         int x = 0;
         int y = 510;
         for (int i = 0; i < fichas.size(); i++) {
             BotonHexagonal b = new BotonHexagonal(Color.red, Color.red, getImage(fichas.get(i).getColor()));
             b.setBounds(50+x, 50+y, 50 , 50);
-            b.addActionListener(controlador);
             this.add(b);
             BotonHexagonal b1 = new BotonHexagonal(Color.red, Color.red, getImage(fichas.get(i).getPareja().getColor()));
             b1.setBounds(100+x, 50+y, 50 , 50);
-            b1.addActionListener(controlador);
+            b1.addMouseListener(controlador);
+            b.addMouseListener(controlador);
             manoJugador.add(b);
             manoJugador.add(b1);
             this.add(b1);
@@ -165,11 +175,8 @@ public class PanelPrincipal extends javax.swing.JPanel {
         this.add(l2);
         for(int j = 0; j < 2; j++){
            for(int i = 0; i < 19; i++){
-                JButton l1 = new JButton(i+"");
+                JLabel l1 = new JLabel(i+"");
                 l1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-                
-                //l1.setContentAreaFilled(false);
-               // l1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
                 l1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                 l1.setBounds(x, y, 30, 20);
                 l1.setBackground(Color.white);
@@ -250,7 +257,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
                 // 5 = Naranja y 6 = Verde
     }
     public void actualizarTableros(){
-        int puntosJ1[] = {10, 5, 0, 18, 6, 9};//j1.getPuntosColor();
+        int puntosJ1[] = j1.getPuntosColor();
         int puntosJ2[] = j2.getPuntosColor();
         int x = 700;
         int y = 120;
@@ -265,6 +272,10 @@ public class PanelPrincipal extends javax.swing.JPanel {
             tableroJ2.get(i).setBounds(x+(30*puntosJ2[i]), y+(20*i), 30, 20);
         }
     }
+    public ArrayList<Ficha> getFichasManoJugador(){
+        return j1.getFichasActuales();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -274,33 +285,19 @@ public class PanelPrincipal extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buscame = new javax.swing.JButton();
-
-        buscame.setText("jButton1");
-        buscame.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        buscame.setBorderPainted(false);
-        buscame.setContentAreaFilled(false);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(393, 393, 393)
-                .addComponent(buscame)
-                .addContainerGap(912, Short.MAX_VALUE))
+            .addGap(0, 1350, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(257, 257, 257)
-                .addComponent(buscame)
-                .addContainerGap(424, Short.MAX_VALUE))
+            .addGap(0, 700, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buscame;
     // End of variables declaration//GEN-END:variables
 }
