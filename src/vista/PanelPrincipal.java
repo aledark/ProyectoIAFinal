@@ -56,14 +56,15 @@ public class PanelPrincipal extends javax.swing.JPanel {
         fichaNaranja = new ImageIcon(getClass().getResource("/imagenes/Naranja50.png"));
         fichaVerde = new ImageIcon(getClass().getResource("/imagenes/Verde50.png"));
         //Inicializar variables
+        j1 = new Jugador();
+        j2 = new Jugador();
+        tablero = new Tablero(j1, j2);
         controlador = new Controlador(this);
         hexagonos = new ArrayList<ArrayList<BotonHexagonal>>();
         manoJugador = new ArrayList<BotonHexagonal>();
         tableroJ1 = new ArrayList<JButton>();
         tableroJ2 = new ArrayList<JButton>();
-        j1 = new Jugador();
-        j2 = new Jugador();
-        tablero = new Tablero(j1, j2);
+        
        
         //Margen para las fichas
         JLabel label = new JLabel();
@@ -75,10 +76,10 @@ public class PanelPrincipal extends javax.swing.JPanel {
         this.add(label2);
   
         crearTablero();
-        tablero.juego();
+        tablero.iniciarJuego();
         dibujarFichasMano();
-        iniciarlizarTablero();
-        actualizarTableros();
+        iniciarlizarTablerosPuntuacion();
+        actualizarTablerosPuntuacion();
     }
     public ArrayList<ArrayList<BotonHexagonal>> getHexagonos(){
         return hexagonos;
@@ -88,6 +89,9 @@ public class PanelPrincipal extends javax.swing.JPanel {
     }
     public ArrayList<ArrayList<Ficha>> getTablero(){
         return tablero.getTablero();
+    }
+    public Tablero getJuego(){
+        return tablero;
     }
     public void crearTablero(){
         int x = 100;
@@ -133,7 +137,10 @@ public class PanelPrincipal extends javax.swing.JPanel {
         return hexagonos;
     }
     public void dibujarFichasMano(){
-        manoJugador.clear();
+        for(int i = 0; i < manoJugador.size(); i++){
+            this.remove(manoJugador.get(i));
+        }
+        manoJugador = new ArrayList<BotonHexagonal>();
         ArrayList<Ficha> fichas = j1.getFichasActuales();
         int x = 0;
         int y = 510;
@@ -154,6 +161,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
                 x = 0;
             }
         }
+       this.repaint();
     }
     public ImageIcon getImage(int color){
         if(color == 1) return fichaAmarilla;
@@ -164,7 +172,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
         if(color == 6) return fichaVerde;
         else return casillaVacia;
     }
-    public void iniciarlizarTablero(){
+    public void iniciarlizarTablerosPuntuacion(){
         int x = 700;
         int y = 100;
         JLabel l = new JLabel("Puntos jugador 1:");
@@ -256,7 +264,7 @@ public class PanelPrincipal extends javax.swing.JPanel {
         // El número depende del color, por ejemplo: 1 = Amarillo, 2 = Morado, 3 = Azul, 4 = Rojo
                 // 5 = Naranja y 6 = Verde
     }
-    public void actualizarTableros(){
+    public void actualizarTablerosPuntuacion(){
         int puntosJ1[] = j1.getPuntosColor();
         int puntosJ2[] = j2.getPuntosColor();
         int x = 700;

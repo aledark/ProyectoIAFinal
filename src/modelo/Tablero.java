@@ -42,38 +42,13 @@ public class Tablero{
         tablero.get(5).get(10).setColor(4);
         tablero.get(10).get(0).setColor(5);
         tablero.get(10).get(5).setColor(6);
-        
-        //tablero.get(10).get(5).setColor(4);
-        /*tablero.get(10).get(2).setColor(4);
-        tablero.get(10).get(1).setColor(4);
-        tablero.get(10).get(3).setColor(4);
-        tablero.get(9).get(4).setColor(4);
-        tablero.get(9).get(0).setColor(4);*/
     }
 
   	//Funciones:
   	//Funcion principal (se manejan los turnos y la jugada)
-    public void juego(){
+    public void iniciarJuego(){
         llenarBolsa();
-        inicializarManos();
-            /*while(!gameOver){
-                    if(turno == true){
-                            Ficha fichaJugada = new Ficha(); //= seleccionarFicha(j1);
-                            int posiciones[] = null;//ingresarTurno();
-                            fichaJugada = j1.mover(fichaJugada, posiciones);
-                            j1.agregarFicha(entregarFichaBolsa());
-                            actualizarTablero(fichaJugada);
-                            fichasEnTablero.add(fichaJugada);
-                            j1.actualizarPuntaje(fichaJugada.getColor(), calcularPuntaje(fichaJugada));
-                            j1.actualizarPuntaje(fichaJugada.getPareja().getColor(), calcularPuntaje(fichaJugada.getPareja()));
-                            validarGameOver();
-                            turno = !turno;
-                    }
-                    else { //Lo mismo pero con j2
-                        
-                    }
-            }*/
-        
+        inicializarManos();  
     }
     
     //Inicializar manos de los jugadores
@@ -93,6 +68,14 @@ public class Tablero{
                 }
             }
         }
+    }
+    
+    public void agregarFichasAlTablero(Ficha ficha){
+        fichasEnTablero.add(ficha);
+    }
+    
+    public void cambiarTurno(){
+        turno = !turno;
     }
     
     public boolean validarEspacio(Ficha ficha){
@@ -121,7 +104,7 @@ public class Tablero{
             }
             //Revisar  derecha
             if(columna < tablero.get(fila).size()){
-                if(tablero.get(fila).get(columna).getColor() == 0) return true;
+                if(tablero.get(fila).get(columna+1).getColor() == 0) return true;
             }
         }
         if(fila >= 6){
@@ -324,15 +307,15 @@ public class Tablero{
         return ficha1;
     }
 
-    private int calcularPuntaje(Ficha fichaJugada) {
+    public int calcularPuntaje(Ficha fichaJugada) {
         int fila = fichaJugada.getFila();
         int columna = fichaJugada.getColumna();
         int puntos = 0;
-        if(fila <=4){
+        if(fila <=4){//5,1-4,0
              //Revisar superior izquierda
             int filaAux = fila-1;
             int columnaAux = columna-1;
-            while(filaAux >= 0 && columna >= 0){
+            while(filaAux >= 0 && columnaAux >= 0){
                 if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
                     puntos++;
                     filaAux--;
@@ -396,7 +379,7 @@ public class Tablero{
             //Revisar superior izquierda
             int filaAux = fila-1;
             int columnaAux = columna;
-            while(filaAux >= 0 && columna >= 0){
+            while(filaAux >= 0 && columnaAux >= 0){
                 if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
                     puntos++;
                     filaAux--;
@@ -460,7 +443,7 @@ public class Tablero{
              //Revisar superior izquierda
             int filaAux = fila-1;
             int columnaAux = columna-1;
-            while(filaAux >= 0 && columna >= 0){
+            while(filaAux >= 0 && columnaAux >= 0){
                 if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
                     puntos++;
                     filaAux--;
@@ -520,11 +503,11 @@ public class Tablero{
                 else break;
             }
         }
-       
+        System.out.println(puntos);
         return puntos;
     }
 
-    private void actualizarTablero(Ficha fichaJugada) {
+    public void actualizarTablero(Ficha fichaJugada) {
         tablero.get(fichaJugada.getFila()).get(fichaJugada.getColumna()).setColor(fichaJugada.getColor());
         tablero.get(fichaJugada.getFila()).get(fichaJugada.getColumna()).setPareja(fichaJugada.getPareja());
         tablero.get(fichaJugada.getPareja().getFila()).get(fichaJugada.getPareja().getColumna()).setColor(fichaJugada.getPareja().getColor());

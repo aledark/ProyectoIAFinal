@@ -19,7 +19,7 @@ public class Jugador {
         this.fichasActuales = fichasActuales;
     }
     
-    Ficha mover(Ficha ficha1, int posiciones[]){
+    public Ficha mover(Ficha ficha1, int posiciones[]){
         ficha1.setFila(posiciones[0]);
         ficha1.setColumna(posiciones[1]);
         Ficha ficha2 = ficha1.getPareja();
@@ -29,14 +29,15 @@ public class Jugador {
         return ficha1;
     }
 
-    void agregarFicha(Ficha fichaNueva){
+    public void agregarFicha(Ficha fichaNueva){
         if(fichaNueva!= null){
             fichasActuales.add(fichaNueva);
         }
     }
 
-    void actualizarPuntaje(int color, int puntaje){
-        puntosColor[color] += puntaje;
+    public void actualizarPuntaje(int color, int puntaje){
+        puntosColor[color-1] += puntaje;
+        if(puntosColor[color-1] > 18)  puntosColor[color-1] = 18;
     }
 
     public int[] getPuntosColor() {
