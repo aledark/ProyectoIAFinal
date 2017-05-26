@@ -58,6 +58,8 @@ public class PanelPrincipal extends javax.swing.JPanel {
         //Inicializar variables
         j1 = new Jugador();
         j2 = new Jugador();
+        j1.setNombre("Jugador1");
+        j2.setNombre("Jugador2");
         tablero = new Tablero(j1, j2);
         controlador = new Controlador(this);
         hexagonos = new ArrayList<ArrayList<BotonHexagonal>>();

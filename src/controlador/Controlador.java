@@ -7,7 +7,7 @@ package controlador;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import modelo.Ficha;
 import modelo.Tablero;
 import vista.BotonHexagonal;
@@ -28,6 +28,7 @@ public class Controlador implements MouseListener{
     int fila1, columna1, fila2, columna2;
     MouseEvent e;
     Tablero juego;
+    boolean seleccionarFichas = true;
     public Controlador(PanelPrincipal panel){
         this.panel = panel;
         fichaSeleccionada = null;
@@ -48,7 +49,7 @@ public class Controlador implements MouseListener{
     public void mouseClicked(MouseEvent e){
         if(e.getButton() == 1){
             if(botonParejaAnterior != null){
-                if(!juego.isGameOver()){
+                if(!juego.isGameOver() && fichaSeleccionada != null){
                     int posiciones[] = {fila1, columna1, fila2, columna2};
                     fichaSeleccionada = juego.getJ1().mover(fichaSeleccionada, posiciones);
                     juego.getJ1().agregarFicha(juego.entregarFichaBolsa());
@@ -63,33 +64,44 @@ public class Controlador implements MouseListener{
                     //panel.getHexagonos().get(fichaSeleccionada.getFila()).get(fichaSeleccionada.getColumna()).setIcon(panel.getImage(fichaSeleccionada.getColor()));
                     //panel.getHexagonos().get(fichaSeleccionada.getPareja().getFila()).get(fichaSeleccionada.getPareja().getColumna()).setIcon(panel.getImage(fichaSeleccionada.getPareja().getColor()));
                     fichaSeleccionada = null;
-                    /*
-                    //Jugador 2
-                    Ficha fichaSeleccionadaJ2 = juego.getJ2().getFichasActuales().get(0);
-                    int posicionesJ2[] = buscarEspacioLibre();
-                    fichaSeleccionadaJ2 = juego.getJ2().mover(fichaSeleccionadaJ2, posicionesJ2);
-                    juego.getJ2().agregarFicha(juego.entregarFichaBolsa());
-                    juego.actualizarTablero(fichaSeleccionadaJ2);
-                    juego.agregarFichasAlTablero(fichaSeleccionadaJ2);
-                    juego.getJ2().actualizarPuntaje(fichaSeleccionadaJ2.getColor(), juego.calcularPuntaje(fichaSeleccionadaJ2));
-                    juego.getJ2().actualizarPuntaje(fichaSeleccionadaJ2.getPareja().getColor(), juego.calcularPuntaje(fichaSeleccionadaJ2.getPareja()));
-                    juego.validarGameOver();
-                    juego.cambiarTurno();
-                    panel.dibujarFichasMano();
-                    panel.actualizarTableros();*/
+                    if(juego.isGameOver()){           
+                        //Jugador 2
+                        Ficha fichaSeleccionadaJ2 = juego.getJ2().getFichasActuales().get(0);
+                        int posicionesJ2[] = buscarEspacioLibre();
+                        fichaSeleccionadaJ2 = juego.getJ2().mover(fichaSeleccionadaJ2, posicionesJ2);
+                        juego.getJ2().agregarFicha(juego.entregarFichaBolsa());
+                        juego.agregarFichasAlTablero(fichaSeleccionadaJ2);
+                        panel.getHexagonos().get(fichaSeleccionadaJ2.getFila()).get(fichaSeleccionadaJ2.getColumna()).setIcon(panel.getImage(fichaSeleccionadaJ2.getColor()));
+                        panel.getHexagonos().get(fichaSeleccionadaJ2.getPareja().getFila()).get(fichaSeleccionadaJ2.getPareja().getColumna()).setIcon(panel.getImage(fichaSeleccionadaJ2.getPareja().getColor()));
+                        juego.getJ2().actualizarPuntaje(fichaSeleccionadaJ2.getColor(), juego.calcularPuntaje(fichaSeleccionadaJ2));
+                        juego.getJ2().actualizarPuntaje(fichaSeleccionadaJ2.getPareja().getColor(), juego.calcularPuntaje(fichaSeleccionadaJ2.getPareja()));
+                        juego.actualizarTablero(fichaSeleccionadaJ2);
+                        juego.validarGameOver();
+                        juego.cambiarTurno();
+                        panel.dibujarFichasMano();
+                        panel.actualizarTablerosPuntuacion();
+                        fichaSeleccionadaJ2 = null;
+                    }
+                    if(juego.isGameOver()){
+                        JOptionPane.showMessageDialog(panel, "El juego ha termnado, el ganador es: "+juego.jugadorGanador().getNombre());
+                        seleccionarFichas = false;
+                    }
                 } 
             } 
-            ArrayList<BotonHexagonal> fichasJugador = panel.getFichasMano();
-            ArrayList<Ficha> fichasManoJugador = panel.getFichasManoJugador();
-            for (int i = 0; i < fichasJugador.size(); i++) {
-                if(e.getSource() == fichasJugador.get(i)){
-                    fichaSeleccionada = fichasManoJugador.get(Math.floorDiv(i, 2));
-                    System.out.println("ficha seleccionada");
+            if(seleccionarFichas == true){
+                 ArrayList<BotonHexagonal> fichasJugador = panel.getFichasMano();
+                ArrayList<Ficha> fichasManoJugador = panel.getFichasManoJugador();
+                for (int i = 0; i < fichasJugador.size(); i++) {
+                    if(e.getSource() == fichasJugador.get(i)){
+                        fichaSeleccionada = fichasManoJugador.get(Math.floorDiv(i, 2));
+                        System.out.println("ficha seleccionada ");
+                    }
                 }
-            }
+            }     
         }
         else{
             lado = (lado+1)%6;
+            System.out.println(lado);
             mouseEntered(e);
         }
     }
@@ -408,16 +420,20 @@ public class Controlador implements MouseListener{
         int i = 0;
         int j = 0;
         for(i = 0; i < t.size() && !encontrado; i++){
-            for (j = 0; j < t.get(i).size(); j++) {
+            for (j = 0; j < t.get(i).size() && !encontrado; j++) {
                 if(t.get(i).get(j).getColor() == 0){
-                     posicionPareja = validarEspacio(t.get(i).get(j));
+                    posicionPareja = validarEspacio(t.get(i).get(j));
                     if(posicionPareja != null) encontrado = true;
+                    System.out.println("Ficha revisada:" + i + " "+j+" Se encontro pareja: "+encontrado);
                 }
             }
         }
+        i--;
+        j--;
         if(posicionPareja == null) return null;
         else {
             int respuesta[] = {   i,j,posicionPareja[0], posicionPareja[1]};
+            System.out.println(i + " "+ j + " "+ posicionPareja[0] + " "+posicionPareja[1]);
             return respuesta;
         }
     }
@@ -427,7 +443,7 @@ public class Controlador implements MouseListener{
         int fila = ficha.getFila();
         int columna = ficha.getColumna();
         boolean encontro = false;
-        if(fila <=4){
+        if(fila <= 4){
             //Revisar superior izquierda
             if(fila > 0 && columna > 0){    
                 if(tablero.get(fila-1).get(columna-1).getColor()==0){
@@ -437,15 +453,17 @@ public class Controlador implements MouseListener{
                 }
             }
             //Revisar superior derecha
-            if(fila > 0 && columna < tablero.get(fila).size()){
-                if(tablero.get(fila-1).get(columna).getColor() == 0){
-                    posiciones[0] = fila-1;
-                    posiciones[1] = columna;
-                    encontro = true;
+            if(fila > 0 && encontro == false){
+                if(columna < tablero.get(fila-1).size()){
+                     if(tablero.get(fila-1).get(columna).getColor() == 0){
+                        posiciones[0] = fila-1;
+                        posiciones[1] = columna;
+                        encontro = true;
+                    }
                 }
             }
             //Revisar Izquierda
-            if(columna > 0){
+            if(columna > 0 && encontro == false){
                 if(tablero.get(fila).get(columna-1).getColor() == 0){
                     posiciones[0] = fila;
                     posiciones[1] = columna-1;
@@ -453,7 +471,7 @@ public class Controlador implements MouseListener{
                 }
             }
             //Revisar inferior izquierda
-            if(fila < tablero.size() && columna < tablero.get(fila).size()){
+            if(fila+1 < tablero.size() && columna < tablero.get(fila).size() && encontro == false){
                 if(tablero.get(fila+1).get(columna).getColor() == 0){
                     posiciones[0] = fila+1;
                     posiciones[1] = columna;
@@ -461,7 +479,7 @@ public class Controlador implements MouseListener{
                 }
             }
             //Revisar inferior derecha
-            if(fila < tablero.size() && columna < tablero.get(fila).size()){
+            if(fila+1 < tablero.size() && columna < tablero.get(fila).size() && encontro == false){
                 if(tablero.get(fila+1).get(columna+1).getColor() == 0){
                     posiciones[0] = fila+1;
                     posiciones[1] = columna+1;
@@ -469,7 +487,7 @@ public class Controlador implements MouseListener{
                 }
             }
             //Revisar  derecha
-            if(columna < tablero.get(fila).size()){
+            if(columna+1 < tablero.get(fila).size() && encontro == false){
                 if(tablero.get(fila).get(columna+1).getColor() == 0){
                     posiciones[0] = fila;
                     posiciones[1] = columna+1;
@@ -479,7 +497,7 @@ public class Controlador implements MouseListener{
         }
         if(fila >= 6){
             //Revisar superior izquierda
-            if(fila > 0 && columna > 0){
+            if(fila > 0 && columna > 0 && encontro == false){
                 if(tablero.get(fila-1).get(columna).getColor() == 0){
                     posiciones[0] = fila-1;
                     posiciones[1] = columna;
@@ -487,15 +505,17 @@ public class Controlador implements MouseListener{
                 }
             }
             //Revisar superior derecha
-            if(fila > 0 && columna < tablero.get(fila).size()){
-                if(tablero.get(fila-1).get(columna+1).getColor() == 0){
-                    posiciones[0] = fila-1;
-                    posiciones[1] = columna+1;
-                    encontro = true;
+            if(fila > 0 && columna < tablero.get(fila).size() && encontro == false){
+                if(columna+1 < tablero.get(fila-1).size()){
+                    if(tablero.get(fila-1).get(columna+1).getColor() == 0){
+                        posiciones[0] = fila-1;
+                        posiciones[1] = columna+1;
+                        encontro = true;
+                    }
                 }
             }
             //Revisar Izquierda
-            if(columna > 0){
+            if(columna > 0 && encontro == false){
                 if(tablero.get(fila).get(columna-1).getColor() == 0){
                     posiciones[0] = fila;
                     posiciones[1] = columna-1;
@@ -503,7 +523,7 @@ public class Controlador implements MouseListener{
                 }
             }
             //Revisar inferior izquierda
-            if(fila < tablero.size() && columna > 0){
+            if(fila+1 < tablero.size() && columna > 0 && encontro == false){
                 if(tablero.get(fila+1).get(columna-1).getColor() == 0){
                     posiciones[0] = fila+1;
                     posiciones[1] = columna-1;
@@ -511,15 +531,17 @@ public class Controlador implements MouseListener{
                 }
             }
             //Revisar inferior derecha
-            if(fila < tablero.size() && columna < tablero.get(fila).size()){
-                if(tablero.get(fila+1).get(columna).getColor() == 0){
-                    posiciones[0] = fila+1;
-                    posiciones[1] = columna;
-                    encontro = true;
+            if(fila+1 < tablero.size() && encontro == false){
+                if(columna < tablero.get(fila+1).size()){
+                    if(tablero.get(fila+1).get(columna).getColor() == 0){
+                        posiciones[0] = fila+1;
+                        posiciones[1] = columna;
+                        encontro = true;
+                    }
                 }
             }
             //Revisar  derecha
-            if(columna < tablero.get(fila).size()){
+            if(columna+1 < tablero.get(fila).size() && encontro == false){
                 if(tablero.get(fila).get(columna+1).getColor() == 0) {
                     posiciones[0] = fila;
                     posiciones[1] = columna+1;
@@ -529,7 +551,7 @@ public class Controlador implements MouseListener{
         }
         else{
             //Revisar superior izquierda
-            if(fila > 0 && columna > 0){    
+            if(fila > 0 && columna > 0 && encontro == false){    
                 if(tablero.get(fila-1).get(columna-1).getColor()==0){
                     posiciones[0] = fila-1;
                     posiciones[1] = columna-1;
@@ -537,23 +559,25 @@ public class Controlador implements MouseListener{
                 }
             }
             //Revisar superior derecha
-            if(fila > 0 && columna < tablero.get(fila).size()){
-                if(tablero.get(fila-1).get(columna).getColor() == 0){
-                    posiciones[0] = fila-1;
-                    posiciones[1] = columna;
-                    encontro = true;
+            if(fila > 0 && encontro == false){
+                if(columna < tablero.get(fila-1).size()){
+                    if(tablero.get(fila-1).get(columna).getColor() == 0){
+                        posiciones[0] = fila-1;
+                        posiciones[1] = columna;
+                        encontro = true;
+                    }
                 }
             }
             //Revisar Izquierda
             if(columna > 0){
-                if(tablero.get(fila).get(columna-1).getColor() == 0){
+                if(tablero.get(fila).get(columna-1).getColor() == 0 && encontro == false){
                     posiciones[0] = fila;
                     posiciones[1] = columna-1;
                     encontro = true;
                 }
             }
             //Revisar inferior izquierda
-            if(fila < tablero.size() && columna > 0){
+            if(fila+1 < tablero.size() && columna > 0 && encontro == false){
                 if(tablero.get(fila+1).get(columna-1).getColor() == 0){
                     posiciones[0] = fila+1;
                     posiciones[1] = columna-1;
@@ -561,15 +585,17 @@ public class Controlador implements MouseListener{
                 }
             }
             //Revisar inferior derecha
-            if(fila < tablero.size() && columna < tablero.get(fila).size()){
-                if(tablero.get(fila+1).get(columna).getColor() == 0){
-                    posiciones[0] = fila+1;
-                    posiciones[1] = columna;
-                    encontro = true;
+            if(fila+1 < tablero.size() && columna < tablero.get(fila).size() && encontro == false){
+                if(columna < tablero.get(fila+1).size()){
+                    if(tablero.get(fila+1).get(columna).getColor() == 0){
+                        posiciones[0] = fila+1;
+                        posiciones[1] = columna;
+                        encontro = true;
+                    }
                 }
             }
             //Revisar  derecha
-            if(columna < tablero.get(fila).size()){
+            if(columna+1 < tablero.get(fila).size() && encontro == false){
                 if(tablero.get(fila).get(columna+1).getColor() == 0){
                     posiciones[0] = fila;
                     posiciones[1] = columna+1;

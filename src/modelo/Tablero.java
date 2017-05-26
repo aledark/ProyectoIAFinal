@@ -62,12 +62,13 @@ public class Tablero{
     public void validarGameOver(){
         boolean respuesta = false;
         for(int i = 0; i < tablero.size() && !respuesta; i++){
-            for(int j = 0; j < tablero.get(i).size() && !respuesta; i++){
+            for(int j = 0; j < tablero.get(i).size() && !respuesta; j++){
                 if(tablero.get(i).get(j).getColor() == 0){
                     if(validarEspacio(tablero.get(i).get(j))) respuesta = true;
                 }
             }
         }
+        gameOver = !respuesta;
     }
     
     public void agregarFichasAlTablero(Ficha ficha){
@@ -87,23 +88,29 @@ public class Tablero{
                 if(tablero.get(fila-1).get(columna-1).getColor()==0) return true;
             }
             //Revisar superior derecha
-            if(fila > 0 && columna < tablero.get(fila).size()){
-                if(tablero.get(fila-1).get(columna).getColor() == 0) return true;
+            if(fila > 0){
+                if(columna < tablero.get(fila-1).size()){
+                    if(tablero.get(fila-1).get(columna).getColor() == 0) return true;
+                }
             }
             //Revisar Izquierda
             if(columna > 0){
                 if(tablero.get(fila).get(columna-1).getColor() == 0) return true;
             }
             //Revisar inferior izquierda
-            if(fila < tablero.size() && columna < tablero.get(fila).size()){
-                if(tablero.get(fila+1).get(columna).getColor() == 0) return true;
+            if(fila+1 < tablero.size()){
+                if(columna < tablero.get(fila+1).size()){
+                    if(tablero.get(fila+1).get(columna).getColor() == 0) return true;
+                }
             }
             //Revisar inferior derecha
-            if(fila < tablero.size() && columna < tablero.get(fila).size()){
-                if(tablero.get(fila+1).get(columna+1).getColor() == 0) return true;
+            if(fila+1 < tablero.size()){
+                if(columna+1 < tablero.get(fila+1).size()){
+                    if(tablero.get(fila+1).get(columna+1).getColor() == 0) return true;
+                }
             }
             //Revisar  derecha
-            if(columna < tablero.get(fila).size()){
+            if(columna+1 < tablero.get(fila).size()){
                 if(tablero.get(fila).get(columna+1).getColor() == 0) return true;
             }
         }
@@ -113,23 +120,27 @@ public class Tablero{
                 if(tablero.get(fila-1).get(columna).getColor() == 0) return true;
             }
             //Revisar superior derecha
-            if(fila > 0 && columna < tablero.get(fila).size()){
-                if(tablero.get(fila-1).get(columna+1).getColor() == 0) return true;
+            if(fila > 0){
+                if(columna+1 < tablero.get(fila-1).size()){
+                    if(tablero.get(fila-1).get(columna+1).getColor() == 0) return true;
+                }
             }
             //Revisar Izquierda
             if(columna > 0){
                 if(tablero.get(fila).get(columna-1).getColor() == 0) return true;
             }
             //Revisar inferior izquierda
-            if(fila < tablero.size() && columna > 0){
+            if(fila+1 < tablero.size() && columna > 0){
                 if(tablero.get(fila+1).get(columna-1).getColor() == 0) return true;
             }
             //Revisar inferior derecha
-            if(fila < tablero.size() && columna < tablero.get(fila).size()){
-                if(tablero.get(fila+1).get(columna).getColor() == 0) return true;
+            if(fila+1 < tablero.size()){
+                if(columna < tablero.get(fila+1).size()){
+                    if(tablero.get(fila+1).get(columna).getColor() == 0) return true;
+                }
             }
             //Revisar  derecha
-            if(columna < tablero.get(fila).size()){
+            if(columna+1 < tablero.get(fila).size()){
                 if(tablero.get(fila).get(columna+1).getColor() == 0) return true;
             }
         }
@@ -139,23 +150,27 @@ public class Tablero{
                 if(tablero.get(fila-1).get(columna-1).getColor()==0) return true;
             }
             //Revisar superior derecha
-            if(fila > 0 && columna < tablero.get(fila).size()){
-                if(tablero.get(fila-1).get(columna).getColor() == 0) return true;
+            if(fila > 0){
+                if(columna < tablero.get(fila-1).size()){
+                    if(tablero.get(fila-1).get(columna).getColor() == 0) return true;
+                }
             }
             //Revisar Izquierda
             if(columna > 0){
                 if(tablero.get(fila).get(columna-1).getColor() == 0) return true;
             }
             //Revisar inferior izquierda
-            if(fila < tablero.size() && columna > 0){
+            if(fila+1 < tablero.size() && columna > 0){
                 if(tablero.get(fila+1).get(columna-1).getColor() == 0) return true;
             }
             //Revisar inferior derecha
-            if(fila < tablero.size() && columna < tablero.get(fila).size()){
-                if(tablero.get(fila+1).get(columna).getColor() == 0) return true;
+            if(fila+1 < tablero.size()){
+                if(columna < tablero.get(fila+1).size()){
+                    if(tablero.get(fila+1).get(columna).getColor() == 0) return true;
+                }
             }
             //Revisar  derecha
-            if(columna < tablero.get(fila).size()){
+            if(columna+1 < tablero.get(fila).size()){
                 if(tablero.get(fila).get(columna+1).getColor() == 0) return true;
             }
         }
@@ -311,199 +326,202 @@ public class Tablero{
         int fila = fichaJugada.getFila();
         int columna = fichaJugada.getColumna();
         int puntos = 0;
-        if(fila <=4){//5,1-4,0
-             //Revisar superior izquierda
-            int filaAux = fila-1;
-            int columnaAux = columna-1;
-            while(filaAux >= 0 && columnaAux >= 0){
-                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                    puntos++;
-                    filaAux--;
-                    columnaAux--;
-                }
-                else break;
-            }
-            //Revisar superior derecha
-            filaAux = fila-1;
-            columnaAux = columna;
-            while(filaAux >= 0 && columnaAux < tablero.get(filaAux).size()){
-                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                    puntos++;
-                    filaAux--;
-                }
-                else break;
-            }
-            //Revisar Izquierda
+        boolean fin = false;
+        int filaAux = 0;
+        int columnaAux = 0;
+        for(int i = 0; i < 6; i++){
             filaAux = fila;
-            columnaAux = columna-1;
-             while(columnaAux >= 0){
-                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                    puntos++;
-                    columnaAux--;
-                }
-                else break;
-            }
-            //Revisar inferior izquierda
-            filaAux = fila+1;
             columnaAux = columna;
-             while(filaAux < tablero.size() && columnaAux < tablero.get(filaAux).size()){
-                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                    puntos++;
-                    filaAux++;
+            fin = false;
+            while(!fin){//0 = superior izquierda, 1 = superior derecha, 2 = derecha, 3 = inferior derecha, 4 = inferior izquierda, 5 = izquierda
+                if(filaAux <= 4){
+                    //Revisar superior izquierda
+                    if(i == 0 && filaAux-1 >= 0 && columnaAux-1>=0){
+                        if(tablero.get(filaAux-1).get(columnaAux-1).getColor() == fichaJugada.getColor()){
+                            puntos++;
+                            filaAux--;
+                            columnaAux--;
+                        }
+                        else fin = true;                        
+                    }
+                    //Revisar superior derecha
+                    else if(i == 1 && filaAux-1 >= 0){
+                        if(columnaAux < tablero.get(filaAux-1).size()){
+                            if(tablero.get(filaAux-1).get(columnaAux).getColor() == fichaJugada.getColor()){
+                                filaAux--;
+                                puntos++;
+                            }
+                            else fin = true; 
+                        }
+                        else fin = true;
+                    }
+                    //Revisar izquierda
+                    else if(i == 5 && columnaAux-1 >= 0){
+                        if(tablero.get(filaAux).get(columnaAux-1).getColor() == fichaJugada.getColor()){
+                            columnaAux--;
+                            puntos++;
+                        }
+                        else fin = true;
+                    }
+                    //Revisar inferior izquierda
+                    else if(i == 4 && filaAux+1 < tablero.size()){
+                        if(columnaAux < tablero.get(filaAux+1).size()){
+                            if(tablero.get(filaAux+1).get(columnaAux).getColor() == fichaJugada.getColor()){
+                                filaAux++;
+                                puntos++;
+                            }
+                            else fin = true;
+                        }
+                        else fin = true;
+                    }
+                    //Revisar inferior derecha
+                    else if(i == 3 && filaAux+1 < tablero.size()){
+                        if(columnaAux+1 < tablero.get(filaAux+1).size()){
+                            if(tablero.get(filaAux+1).get(columnaAux+1).getColor() == fichaJugada.getColor()){
+                                filaAux++;
+                                columnaAux++;
+                                puntos++;
+                            }
+                            else fin = true;
+                        }
+                        else fin = true;
+                    }
+                    //Revisar derecha
+                    else if(i == 2 && columnaAux+1 < tablero.get(filaAux).size()){
+                        if(tablero.get(filaAux).get(columnaAux+1).getColor() == fichaJugada.getColor()){
+                            columnaAux++;
+                            puntos++;
+                        }
+                        else fin = true;
+                    }
+                    else fin = true;
+                }else if(filaAux >= 6){
+                    //Revisar superior izquierda
+                    if(i == 0 && filaAux-1 >= 0 && columnaAux >= 0){
+                        if(tablero.get(filaAux-1).get(columnaAux).getColor() == fichaJugada.getColor()){
+                            filaAux--;
+                            puntos++;
+                        }
+                        else fin = true;
+                    }
+                    //Revisar superior derecha 
+                    else if(i == 1 && filaAux-1 >= 0){
+                        if(columnaAux+1 < tablero.get(filaAux-1).size()){
+                            if(tablero.get(filaAux-1).get(columnaAux+1).getColor() == fichaJugada.getColor()){
+                                filaAux--;
+                                columnaAux++;
+                                puntos++;
+                            }
+                            else fin = true;
+                        }
+                        else fin = true;
+                    }
+                    //Revisar izquierda
+                    else if(i == 5 && columnaAux-1 >= 0){
+                        if(tablero.get(filaAux).get(columnaAux-1).getColor() == fichaJugada.getColor()){
+                            columnaAux--;
+                            puntos++;
+                        }
+                        else fin = true;
+                    }
+                    //Revisar inferior izquierda
+                    else if(i == 4 && filaAux+1 < tablero.size()){
+                        if(columnaAux-1 >= 0){
+                            if(tablero.get(filaAux+1).get(columnaAux-1).getColor() == fichaJugada.getColor()){
+                                filaAux++;
+                                columnaAux--;
+                                puntos++;
+                            }
+                            else fin = true;
+                        }
+                        else fin = true;
+                    }
+                    //Revisar inferior derecha
+                    else if(i == 3 && filaAux+1 < tablero.size()){
+                        if(columnaAux < tablero.get(filaAux+1).size()){
+                            if(tablero.get(filaAux+1).get(columnaAux).getColor() == fichaJugada.getColor()){
+                                filaAux++;
+                                puntos++;
+                            }
+                            else fin = true;
+                        }
+                        else fin = true;
+                    }
+                    //Revisar derecha
+                    else if(i == 2 && columnaAux+1 < tablero.get(filaAux).size()){
+                        if(tablero.get(filaAux).get(columnaAux+1).getColor() == fichaJugada.getColor()){
+                            columnaAux++;
+                            puntos++;
+                        }
+                        else fin = true;
+                    }
+                    else fin = true;
+                }else{
+                    //Revisar superior izquierda
+                    if(i == 0 && filaAux-1 >= 0 && columnaAux-1>=0){
+                        if(tablero.get(filaAux-1).get(columnaAux-1).getColor() == fichaJugada.getColor()){
+                            puntos++;
+                            filaAux--;
+                            columnaAux--;
+                        }
+                        else fin = true;                        
+                    }
+                    //Revisar superior derecha
+                    else if(i == 1 && filaAux-1 >= 0){
+                        if(columnaAux < tablero.get(filaAux-1).size()){
+                            if(tablero.get(filaAux-1).get(columnaAux).getColor() == fichaJugada.getColor()){
+                                filaAux--;
+                                puntos++;
+                            }
+                            else fin = true; 
+                        }
+                        else fin = true;
+                    }
+                    //Revisar izquierda
+                    else if(i == 5 && columnaAux-1 >= 0){
+                        if(tablero.get(filaAux).get(columnaAux-1).getColor() == fichaJugada.getColor()){
+                            columnaAux--;
+                            puntos++;
+                        }
+                        else fin = true;
+                    }
+                    //Revisar inferior izquierda
+                    else if(i == 4 && filaAux+1 < tablero.size()){
+                        if(columnaAux-1 >= 0){
+                            if(tablero.get(filaAux+1).get(columnaAux-1).getColor() == fichaJugada.getColor()){
+                                filaAux++;
+                                columnaAux--;
+                                puntos++;
+                            }
+                            else fin = true;
+                        }
+                        else fin = true;
+                    }
+                    //Revisar inferior derecha
+                    else if(i == 3 && filaAux+1 < tablero.size()){
+                        if(columnaAux < tablero.get(filaAux+1).size()){
+                            if(tablero.get(filaAux+1).get(columnaAux).getColor() == fichaJugada.getColor()){
+                                filaAux++;
+                                puntos++;
+                            }
+                            else fin = true;
+                        }
+                        else fin = true;
+                    }
+                    //Revisar derecha
+                    else if(i == 2 && columnaAux+1 < tablero.get(filaAux).size()){
+                        if(tablero.get(filaAux).get(columnaAux+1).getColor() == fichaJugada.getColor()){
+                            columnaAux++;
+                            puntos++;
+                        }
+                        else fin = true;
+                    }
+                    else fin = true;
                 }
-                else break;
-            }
-            //Revisar inferior derecha
-            filaAux = fila+1;
-            columnaAux = columna+1;
-             while(filaAux < tablero.size() && columnaAux < tablero.get(filaAux).size()){
-                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                    puntos++;
-                    filaAux++;
-                    columnaAux++;
-                }
-                else break;
-            }
-            //Revisar  derecha
-            filaAux = fila;
-            columnaAux = columna+1;
-             while(columnaAux < tablero.get(filaAux).size()){
-                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                    puntos++;
-                    columnaAux++;
-                }
-                else break;
             }
         }
-        else if(fila >=6){
-            //Revisar superior izquierda
-            int filaAux = fila-1;
-            int columnaAux = columna;
-            while(filaAux >= 0 && columnaAux >= 0){
-                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                    puntos++;
-                    filaAux--;
-                }
-                else break;
-            }
-            //Revisar superior derecha
-            filaAux = fila-1;
-            columnaAux = columna+1;
-            while(filaAux >= 0 && columnaAux < tablero.get(filaAux).size()){
-                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                    puntos++;
-                    filaAux--;
-                    columnaAux++;
-                }
-                else break;
-            }
-            //Revisar Izquierda
-            filaAux = fila;
-            columnaAux = columna-1;
-             while(columnaAux >= 0){
-                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                    puntos++;
-                    columnaAux--;
-                }
-                else break;
-            }
-            //Revisar inferior izquierda
-            filaAux = fila+1;
-            columnaAux = columna-1;
-             while(filaAux < tablero.size() && columnaAux >= 0){
-                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                    puntos++;
-                    filaAux++;
-                    columnaAux--;
-                }
-                else break;
-            }
-            //Revisar inferior derecha
-            filaAux = fila+1;
-            columnaAux = columna;
-             while(filaAux < tablero.size() && columnaAux < tablero.get(filaAux).size()){
-                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                    puntos++;
-                    filaAux++;
-                }
-                else break;
-            }
-            //Revisar  derecha
-            filaAux = fila;
-            columnaAux = columna+1;
-             while(columnaAux < tablero.get(filaAux).size()){
-                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                    puntos++;
-                    columnaAux++;
-                }
-                else break;
-            }
-        }
-        else{
-             //Revisar superior izquierda
-            int filaAux = fila-1;
-            int columnaAux = columna-1;
-            while(filaAux >= 0 && columnaAux >= 0){
-                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                    puntos++;
-                    filaAux--;
-                    columnaAux--;
-                }
-                else break;
-            }
-            //Revisar superior derecha
-            filaAux = fila-1;
-            columnaAux = columna;
-            while(filaAux >= 0 && columnaAux < tablero.get(filaAux).size()){
-                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                    puntos++;
-                    filaAux--;
-                }
-                else break;
-            }
-            //Revisar Izquierda
-            filaAux = fila;
-            columnaAux = columna-1;
-             while(columnaAux >= 0){
-                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                    puntos++;
-                    columnaAux--;
-                }
-                else break;
-            }
-            //Revisar inferior izquierda
-            filaAux = fila+1;
-            columnaAux = columna-1;
-             while(filaAux < tablero.size() && columnaAux >= 0){
-                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                    puntos++;
-                    filaAux++;
-                    columnaAux--;
-                }
-                else break;
-            }
-            //Revisar inferior derecha
-            filaAux = fila+1;
-            columnaAux = columna;
-             while(filaAux < tablero.size() && columnaAux < tablero.get(filaAux).size()){
-                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                    puntos++;
-                    filaAux++;
-                }
-                else break;
-            }
-            //Revisar  derecha
-            filaAux = fila;
-            columnaAux = columna+1;
-             while(columnaAux < tablero.get(filaAux).size()){
-                if(tablero.get(filaAux).get(columnaAux).getColor() == fichaJugada.getColor()){
-                    puntos++;
-                    columnaAux++;
-                }
-                else break;
-            }
-        }
-        System.out.println(puntos);
+        //0 = superior izquierda, 1 = superior derecha, 2 = derecha, 3 = inferior derecha, 4 = inferior izquierda, 5 = izquierda
+        System.out.println("Ficha: "+fichaJugada.getFila() + "-"+ fichaJugada.getColumna()+" puntos:"+puntos);
         return puntos;
     }
 
