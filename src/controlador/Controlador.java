@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import modelo.Ficha;
+import modelo.Jugador;
 import modelo.Tablero;
 import vista.BotonHexagonal;
 import vista.PanelPrincipal;
@@ -64,7 +65,7 @@ public class Controlador implements MouseListener{
                     //panel.getHexagonos().get(fichaSeleccionada.getFila()).get(fichaSeleccionada.getColumna()).setIcon(panel.getImage(fichaSeleccionada.getColor()));
                     //panel.getHexagonos().get(fichaSeleccionada.getPareja().getFila()).get(fichaSeleccionada.getPareja().getColumna()).setIcon(panel.getImage(fichaSeleccionada.getPareja().getColor()));
                     fichaSeleccionada = null;
-                    if(juego.isGameOver()){           
+                    if(!juego.isGameOver()){           
                         //Jugador 2
                         Ficha fichaSeleccionadaJ2 = juego.getJ2().getFichasActuales().get(0);
                         int posicionesJ2[] = buscarEspacioLibre();
@@ -83,7 +84,12 @@ public class Controlador implements MouseListener{
                         fichaSeleccionadaJ2 = null;
                     }
                     if(juego.isGameOver()){
-                        JOptionPane.showMessageDialog(panel, "El juego ha termnado, el ganador es: "+juego.jugadorGanador().getNombre());
+                        Jugador jugador = juego.jugadorGanador();
+                        if(jugador == null){
+                            JOptionPane.showMessageDialog(panel, "Empate");
+                        }else{
+                            JOptionPane.showMessageDialog(panel, "El juego ha termnado, el ganador es: "+juego.jugadorGanador().getNombre());
+                        }
                         seleccionarFichas = false;
                     }
                 } 

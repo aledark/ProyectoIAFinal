@@ -194,8 +194,9 @@ public class Tablero{
                    puntajeTotalJ2 = puntajeJugador2[i];
                 }
             }
-
-            if(puntajeTotalJ1 > puntajeTotalJ2){
+            if(puntajeTotalJ1 == puntajeTotalJ2){
+                ganador = null;
+            }else if(puntajeTotalJ1 > puntajeTotalJ2){
                 ganador = j1;
             }else{
                 ganador = j2;
