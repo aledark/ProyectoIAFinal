@@ -54,9 +54,9 @@ public class ArbolMinMax {
                     ArrayList<ArrayList<Ficha>> nuevoTablero = (ArrayList<ArrayList<Ficha>>) raiz.getTablero().clone();
                     //Se actualiza el color y la posicion de la ficha
                     fichasManoIA.get(j).setFila(alternativas.get(i)[0]);
-                    fichasManoIA.get(j).setFila(alternativas.get(i)[1]);
+                    fichasManoIA.get(j).setColumna(alternativas.get(i)[1]);
                     fichasManoIA.get(j).getPareja().setFila(alternativas.get(i)[2]);
-                    fichasManoIA.get(j).getPareja().setFila(alternativas.get(i)[3]);
+                    fichasManoIA.get(j).getPareja().setColumna(alternativas.get(i)[3]);
                     
                      //Se crea copia del puntje y se actualiza la copia con el nuevo puntaje
                     nodoNuevo.setTablero(nuevoTablero);
@@ -82,7 +82,6 @@ public class ArbolMinMax {
                     nodoNuevo.setColumna(alternativas.get(i)[1]);
                     nodoNuevo.setFila2(alternativas.get(i)[2]);
                     nodoNuevo.setColumna2(alternativas.get(i)[3]);
-                    
 
                     //Se setea la profundidad
                     nodoNuevo.setProfundidad(1);
@@ -114,6 +113,220 @@ public class ArbolMinMax {
         fila = raiz.getFila();
         columna = raiz.getColumna();
         //fichaRespuesta = raiz.getFicha();
+    }
+    
+    public ArrayList<int[]> posiblesPosiciones(ArrayList<ArrayList<Ficha>> t) {
+        ArrayList<int[]> respuesta = new ArrayList<int[]>();
+        for(int i = 0; i < t.size(); i++){
+            for (int j = 0; j < t.get(i).size(); j++) {
+                if(t.get(i).get(j).getColor() == 0){
+                    validarEspacio(t.get(i).get(j), t, respuesta);
+                }
+            }
+        }
+        return respuesta;
+    }
+    
+    public void validarEspacio(Ficha ficha, ArrayList<ArrayList<Ficha>> tablero, ArrayList<int[]> respuesta){
+        int fila = ficha.getFila();
+        int columna = ficha.getColumna();
+        int posiciones [] = new int[4];
+        if(fila <= 4){
+            //Revisar superior izquierda
+            if(fila > 0 && columna > 0){    
+                if(tablero.get(fila-1).get(columna-1).getColor()==0){
+                    posiciones[0] = fila-1;
+                    posiciones[1] = columna-1;
+                    posiciones[2] = fila;
+                    posiciones[3] = columna;
+                    respuesta.add(posiciones);
+                }
+            }
+            //Revisar superior derecha
+            if(fila > 0){
+                if(columna < tablero.get(fila-1).size()){
+                     if(tablero.get(fila-1).get(columna).getColor() == 0){
+                        posiciones[0] = fila-1;
+                        posiciones[1] = columna;
+                        posiciones[2] = fila;
+                        posiciones[3] = columna;
+                        respuesta.add(posiciones);
+                    }
+                }
+            }
+            //Revisar Izquierda
+            if(columna > 0){
+                if(tablero.get(fila).get(columna-1).getColor() == 0){
+                    posiciones[0] = fila;
+                    posiciones[1] = columna-1;
+                    posiciones[2] = fila;
+                    posiciones[3] = columna;
+                    respuesta.add(posiciones);
+                }
+            }
+            //Revisar inferior izquierda
+            if(fila+1 < tablero.size() && columna < tablero.get(fila).size()){
+                if(tablero.get(fila+1).get(columna).getColor() == 0){
+                    posiciones[0] = fila+1;
+                    posiciones[1] = columna;
+                    posiciones[2] = fila;
+                    posiciones[3] = columna;
+                    respuesta.add(posiciones);
+                }
+            }
+            //Revisar inferior derecha
+            if(fila+1 < tablero.size() && columna < tablero.get(fila).size()){
+                if(tablero.get(fila+1).get(columna+1).getColor() == 0){
+                    posiciones[0] = fila+1;
+                    posiciones[1] = columna+1;
+                    posiciones[2] = fila;
+                    posiciones[3] = columna;
+                    respuesta.add(posiciones);
+                }
+            }
+            //Revisar  derecha
+            if(columna+1 < tablero.get(fila).size()){
+                if(tablero.get(fila).get(columna+1).getColor() == 0){
+                    posiciones[0] = fila;
+                    posiciones[1] = columna+1;
+                    posiciones[2] = fila;
+                    posiciones[3] = columna;
+                    respuesta.add(posiciones);
+                }
+            }
+        }
+        if(fila >= 6){
+            //Revisar superior izquierda
+            if(fila > 0 && columna > 0){
+                if(tablero.get(fila-1).get(columna).getColor() == 0){
+                    posiciones[0] = fila-1;
+                    posiciones[1] = columna;
+                    posiciones[2] = fila;
+                    posiciones[3] = columna;
+                    respuesta.add(posiciones);
+                }
+            }
+            //Revisar superior derecha
+            if(fila > 0 && columna < tablero.get(fila).size()){
+                if(columna+1 < tablero.get(fila-1).size()){
+                    if(tablero.get(fila-1).get(columna+1).getColor() == 0){
+                        posiciones[0] = fila-1;
+                        posiciones[1] = columna+1;
+                        posiciones[2] = fila;
+                        posiciones[3] = columna;
+                        respuesta.add(posiciones);
+                    }
+                }
+            }
+            //Revisar Izquierda
+            if(columna > 0){
+                if(tablero.get(fila).get(columna-1).getColor() == 0){
+                    posiciones[0] = fila;
+                    posiciones[1] = columna-1;
+                    posiciones[2] = fila;
+                    posiciones[3] = columna;
+                    respuesta.add(posiciones);
+                }
+            }
+            //Revisar inferior izquierda
+            if(fila+1 < tablero.size() && columna > 0){
+                if(tablero.get(fila+1).get(columna-1).getColor() == 0){
+                    posiciones[0] = fila+1;
+                    posiciones[1] = columna-1;
+                    posiciones[2] = fila;
+                    posiciones[3] = columna;
+                    respuesta.add(posiciones);
+                }
+            }
+            //Revisar inferior derecha
+            if(fila+1 < tablero.size()){
+                if(columna < tablero.get(fila+1).size()){
+                    if(tablero.get(fila+1).get(columna).getColor() == 0){
+                        posiciones[0] = fila+1;
+                        posiciones[1] = columna;
+                        posiciones[2] = fila;
+                        posiciones[3] = columna;
+                        respuesta.add(posiciones);
+                    }
+                }
+            }
+            //Revisar  derecha
+            if(columna+1 < tablero.get(fila).size()){
+                if(tablero.get(fila).get(columna+1).getColor() == 0) {
+                    posiciones[0] = fila;
+                    posiciones[1] = columna+1;
+                    posiciones[2] = fila;
+                    posiciones[3] = columna;
+                    respuesta.add(posiciones);
+                }
+            }
+        }
+        else{
+            //Revisar superior izquierda
+            if(fila > 0 && columna > 0){    
+                if(tablero.get(fila-1).get(columna-1).getColor()==0){
+                    posiciones[0] = fila-1;
+                    posiciones[1] = columna-1;
+                    posiciones[2] = fila;
+                    posiciones[3] = columna;
+                    respuesta.add(posiciones);
+                }
+            }
+            //Revisar superior derecha
+            if(fila > 0){
+                if(columna < tablero.get(fila-1).size()){
+                    if(tablero.get(fila-1).get(columna).getColor() == 0){
+                        posiciones[0] = fila-1;
+                        posiciones[1] = columna;
+                        posiciones[2] = fila;
+                        posiciones[3] = columna;
+                        respuesta.add(posiciones);
+                    }
+                }
+            }
+            //Revisar Izquierda
+            if(columna > 0){
+                if(tablero.get(fila).get(columna-1).getColor() == 0){
+                    posiciones[0] = fila;
+                    posiciones[1] = columna-1;
+                    posiciones[2] = fila;
+                    posiciones[3] = columna;
+                    respuesta.add(posiciones);
+                }
+            }
+            //Revisar inferior izquierda
+            if(fila+1 < tablero.size() && columna > 0){
+                if(tablero.get(fila+1).get(columna-1).getColor() == 0){
+                    posiciones[0] = fila+1;
+                    posiciones[1] = columna-1;
+                    posiciones[2] = fila;
+                    posiciones[3] = columna;
+                    respuesta.add(posiciones);
+                }
+            }
+            //Revisar inferior derecha
+            if(fila+1 < tablero.size() && columna < tablero.get(fila).size()){
+                if(columna < tablero.get(fila+1).size()){
+                    if(tablero.get(fila+1).get(columna).getColor() == 0){
+                        posiciones[0] = fila+1;
+                        posiciones[1] = columna;
+                        posiciones[2] = fila;
+                        posiciones[3] = columna;
+                        respuesta.add(posiciones);
+                    }
+                }
+            }
+            //Revisar  derecha
+            if(columna+1 < tablero.get(fila).size()){
+                if(tablero.get(fila).get(columna+1).getColor() == 0){
+                    posiciones[0] = fila;
+                    posiciones[1] = columna+1;
+                    posiciones[2] = fila;
+                    posiciones[3] = columna;
+                    respuesta.add(posiciones);
+                }
+            }
+        }
     }
     
     public Nodo getRaiz() {
@@ -178,237 +391,6 @@ public class ArbolMinMax {
 
     public void setFichaRespuesta(Ficha fichaRespuesta) {
         this.fichaRespuesta = fichaRespuesta;
-    }
-    
-    public ArrayList<int[]> posiblesPosiciones(ArrayList<ArrayList<Ficha>> t) {
-        ArrayList<int[]> respuesta = new ArrayList<int[]>();
-        for(int i = 0; i < t.size(); i++){
-            for (int j = 0; j < t.get(i).size(); j++) {
-                if(t.get(i).get(j).getColor() == 0){
-                    validarEspacio(t.get(i).get(j), t, respuesta);
-                }
-            }
-        }
-        return respuesta;
-    }
-    
-    public void validarEspacio(Ficha ficha, ArrayList<ArrayList<Ficha>> tablero, ArrayList<int[]> respuesta){
-        int fila = ficha.getFila();
-        int columna = ficha.getColumna();
-        if(fila <= 4){
-            //Revisar superior izquierda
-            if(fila > 0 && columna > 0){    
-                if(tablero.get(fila-1).get(columna-1).getColor()==0){
-                    int posiciones [] = new int[4];
-                    posiciones[0] = fila-1;
-                    posiciones[1] = columna-1;
-                    posiciones[2] = fila;
-                    posiciones[3] = columna;
-                    respuesta.add(posiciones);
-                }
-            }
-            //Revisar superior derecha
-            if(fila > 0){
-                if(columna < tablero.get(fila-1).size()){
-                     if(tablero.get(fila-1).get(columna).getColor() == 0){
-                        int posiciones [] = new int[2];
-                        posiciones[0] = fila-1;
-                        posiciones[1] = columna;
-                        posiciones[2] = fila;
-                        posiciones[3] = columna;
-                        respuesta.add(posiciones);
-                    }
-                }
-            }
-            //Revisar Izquierda
-            if(columna > 0){
-                if(tablero.get(fila).get(columna-1).getColor() == 0){
-                    int posiciones [] = new int[2];
-                    posiciones[0] = fila;
-                    posiciones[1] = columna-1;
-                    posiciones[2] = fila;
-                    posiciones[3] = columna;
-                    respuesta.add(posiciones);
-                }
-            }
-            //Revisar inferior izquierda
-            if(fila+1 < tablero.size() && columna < tablero.get(fila).size()){
-                if(tablero.get(fila+1).get(columna).getColor() == 0){
-                    int posiciones [] = new int[2];
-                    posiciones[0] = fila+1;
-                    posiciones[1] = columna;
-                    posiciones[2] = fila;
-                    posiciones[3] = columna;
-                    respuesta.add(posiciones);
-                }
-            }
-            //Revisar inferior derecha
-            if(fila+1 < tablero.size() && columna < tablero.get(fila).size()){
-                if(tablero.get(fila+1).get(columna+1).getColor() == 0){
-                    int posiciones [] = new int[2];
-                    posiciones[0] = fila+1;
-                    posiciones[1] = columna+1;
-                    posiciones[2] = fila;
-                    posiciones[3] = columna;
-                    respuesta.add(posiciones);
-                }
-            }
-            //Revisar  derecha
-            if(columna+1 < tablero.get(fila).size()){
-                if(tablero.get(fila).get(columna+1).getColor() == 0){
-                    int posiciones [] = new int[2];
-                    posiciones[0] = fila;
-                    posiciones[1] = columna+1;
-                    posiciones[2] = fila;
-                    posiciones[3] = columna;
-                    respuesta.add(posiciones);
-                }
-            }
-        }
-        if(fila >= 6){
-            //Revisar superior izquierda
-            if(fila > 0 && columna > 0){
-                if(tablero.get(fila-1).get(columna).getColor() == 0){
-                    int posiciones [] = new int[2];
-                    posiciones[0] = fila-1;
-                    posiciones[1] = columna;
-                    posiciones[2] = fila;
-                    posiciones[3] = columna;
-                    respuesta.add(posiciones);
-                }
-            }
-            //Revisar superior derecha
-            if(fila > 0 && columna < tablero.get(fila).size()){
-                if(columna+1 < tablero.get(fila-1).size()){
-                    if(tablero.get(fila-1).get(columna+1).getColor() == 0){
-                        int posiciones [] = new int[2];
-                        posiciones[0] = fila-1;
-                        posiciones[1] = columna+1;
-                        posiciones[2] = fila;
-                        posiciones[3] = columna;
-                        respuesta.add(posiciones);
-                    }
-                }
-            }
-            //Revisar Izquierda
-            if(columna > 0){
-                if(tablero.get(fila).get(columna-1).getColor() == 0){
-                    int posiciones [] = new int[2];
-                    posiciones[0] = fila;
-                    posiciones[1] = columna-1;
-                    posiciones[2] = fila;
-                    posiciones[3] = columna;
-                    respuesta.add(posiciones);
-                }
-            }
-            //Revisar inferior izquierda
-            if(fila+1 < tablero.size() && columna > 0){
-                if(tablero.get(fila+1).get(columna-1).getColor() == 0){
-                    int posiciones [] = new int[2];
-                    posiciones[0] = fila+1;
-                    posiciones[1] = columna-1;
-                    posiciones[2] = fila;
-                    posiciones[3] = columna;
-                    respuesta.add(posiciones);
-                }
-            }
-            //Revisar inferior derecha
-            if(fila+1 < tablero.size()){
-                if(columna < tablero.get(fila+1).size()){
-                    if(tablero.get(fila+1).get(columna).getColor() == 0){
-                        int posiciones [] = new int[2];
-                        posiciones[0] = fila+1;
-                        posiciones[1] = columna;
-                        posiciones[2] = fila;
-                        posiciones[3] = columna;
-                        respuesta.add(posiciones);
-                    }
-                }
-            }
-            //Revisar  derecha
-            if(columna+1 < tablero.get(fila).size()){
-                if(tablero.get(fila).get(columna+1).getColor() == 0) {
-                    int posiciones [] = new int[2];
-                    posiciones[0] = fila;
-                    posiciones[1] = columna+1;
-                    posiciones[2] = fila;
-                    posiciones[3] = columna;
-                    respuesta.add(posiciones);
-                }
-            }
-        }
-        else{
-            //Revisar superior izquierda
-            if(fila > 0 && columna > 0){    
-                if(tablero.get(fila-1).get(columna-1).getColor()==0){
-                    int posiciones [] = new int[2];
-                    posiciones[0] = fila-1;
-                    posiciones[1] = columna-1;
-                    posiciones[2] = fila;
-                    posiciones[3] = columna;
-                    respuesta.add(posiciones);
-                }
-            }
-            //Revisar superior derecha
-            if(fila > 0){
-                if(columna < tablero.get(fila-1).size()){
-                    if(tablero.get(fila-1).get(columna).getColor() == 0){
-                        int posiciones [] = new int[2];
-                        posiciones[0] = fila-1;
-                        posiciones[1] = columna;
-                        posiciones[2] = fila;
-                        posiciones[3] = columna;
-                        respuesta.add(posiciones);
-                    }
-                }
-            }
-            //Revisar Izquierda
-            if(columna > 0){
-                if(tablero.get(fila).get(columna-1).getColor() == 0){
-                    int posiciones [] = new int[2];
-                    posiciones[0] = fila;
-                    posiciones[1] = columna-1;
-                    posiciones[2] = fila;
-                    posiciones[3] = columna;
-                    respuesta.add(posiciones);
-                }
-            }
-            //Revisar inferior izquierda
-            if(fila+1 < tablero.size() && columna > 0){
-                if(tablero.get(fila+1).get(columna-1).getColor() == 0){
-                    int posiciones [] = new int[2];
-                    posiciones[0] = fila+1;
-                    posiciones[1] = columna-1;
-                    posiciones[2] = fila;
-                    posiciones[3] = columna;
-                    respuesta.add(posiciones);
-                }
-            }
-            //Revisar inferior derecha
-            if(fila+1 < tablero.size() && columna < tablero.get(fila).size()){
-                if(columna < tablero.get(fila+1).size()){
-                    if(tablero.get(fila+1).get(columna).getColor() == 0){
-                        int posiciones [] = new int[2];
-                        posiciones[0] = fila+1;
-                        posiciones[1] = columna;
-                        posiciones[2] = fila;
-                        posiciones[3] = columna;
-                        respuesta.add(posiciones);
-                    }
-                }
-            }
-            //Revisar  derecha
-            if(columna+1 < tablero.get(fila).size()){
-                if(tablero.get(fila).get(columna+1).getColor() == 0){
-                    int posiciones [] = new int[2];
-                    posiciones[0] = fila;
-                    posiciones[1] = columna+1;
-                    posiciones[2] = fila;
-                    posiciones[3] = columna;
-                    respuesta.add(posiciones);
-                }
-            }
-        }
     }
 
 }

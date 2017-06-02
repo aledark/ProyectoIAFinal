@@ -16,6 +16,9 @@ public class Nodo {
     int columna2;
     int puntosColorIA[];
     int puntosColorJ[];
+    boolean revisado;
+    int ficha;
+    int contador = 0;
     
     
     public Nodo(){
@@ -29,45 +32,6 @@ public class Nodo {
         fila = 0;
         columna = 0;
         ficha = -1;
-    }
-    
-    public int getFila2() {
-        return fila2;
-    }
-
-    public void setFila2(int fila2) {
-        this.fila2 = fila2;
-    }
-
-    public int getColumna2() {
-        return columna2;
-    }
-
-    public void setColumna2(int columna2) {
-        this.columna2 = columna2;
-    }
-    boolean revisado;
-    int ficha;
-    int contador = 0;
-
-    public int[] getPuntosColorIA() {
-        return puntosColorIA;
-    }
-
-    public void setPuntosColorIA(int[] puntosColorIA) {
-        this.puntosColorIA = puntosColorIA;
-    }
-
-    public int[] getPuntosColorJ() {
-        return puntosColorJ;
-    }
-
-    public void setPuntosColorJ(int[] puntosColorJ) {
-        this.puntosColorJ = puntosColorJ;
-    }
-    
-    public void agregarHijo(Nodo hijo){
-        hijos.add(hijo);
     }
     
     public void actualizarPuntaje(int puntaje, int fila, int columna, int ficha){
@@ -87,99 +51,6 @@ public class Nodo {
                 this.ficha = ficha;
             }
         }
-    }
-
-    public int getContador() {
-        return contador;
-    }
-
-    public void setContador(int contador) {
-        this.contador = contador;
-    }
-    
-    public int getFila() {
-        return fila;
-    }
-
-    public void setFila(int fila) {
-        this.fila = fila;
-    }
-
-    public int getColumna() {
-        return columna;
-    }
-
-    public void setColumna(int columna) {
-        this.columna = columna;
-    }
-
-    public int getFicha() {
-        return ficha;
-    }
-
-    public void setFicha(int ficha) {
-        this.ficha = ficha;
-    }
-    
-    public ArrayList<ArrayList<Ficha>> getTablero() {
-        return tablero;
-    }
-
-    public void setTablero(ArrayList<ArrayList<Ficha>> tablero) {
-        this.tablero = tablero;
-    }
-
-    public int getProfundidad() {
-        return profundidad;
-    }
-
-    public void setProfundidad(int profundidad) {
-        this.profundidad = profundidad;
-    }
-
-    public Nodo getPadre() {
-        return padre;
-    }
-
-    public void setPadre(Nodo padre) {
-        this.padre = padre;
-    }
-
-    public ArrayList<Nodo> getHijos() {
-        return hijos;
-    }
-
-    public void setHijos(ArrayList<Nodo> hijos) {
-        this.hijos = hijos;
-    }
-
-    public int getPuntajeUtilidad() {
-        return puntajeUtilidad;
-    }
-
-    public void setPuntajeUtilidad(int puntajeUtilidad) {
-        this.puntajeUtilidad = puntajeUtilidad;
-    }
-
-    public int getTipoNodo() {
-        return tipoNodo;
-    }
-
-    public void setTipoNodo(int tipoNodo) {
-        if(tipoNodo == 1){
-            puntajeUtilidad = Integer.MIN_VALUE;
-        }else{
-            puntajeUtilidad = Integer.MAX_VALUE;
-        }
-        this.tipoNodo = tipoNodo;
-    }
-
-    public boolean isRevisado() {
-        return revisado;
-    }
-
-    public void setRevisado(boolean revisado) {
-        this.revisado = revisado;
     }
 
     public int actualizarPuntajeFicha(Ficha fichaJugada) {
@@ -390,5 +261,134 @@ public class Nodo {
     public void actualizarPuntajeJ(int color, int puntaje){
         puntosColorJ[color-1] += puntaje;
         if(puntosColorJ[color-1] > 18)  puntosColorJ[color-1] = 18;
+    }
+    
+    public int getFila2() {
+        return fila2;
+    }
+
+    public void setFila2(int fila2) {
+        this.fila2 = fila2;
+    }
+
+    public int getColumna2() {
+        return columna2;
+    }
+
+    public void setColumna2(int columna2) {
+        this.columna2 = columna2;
+    }
+
+    public int[] getPuntosColorIA() {
+        return puntosColorIA;
+    }
+
+    public void setPuntosColorIA(int[] puntosColorIA) {
+        this.puntosColorIA = puntosColorIA;
+    }
+
+    public int[] getPuntosColorJ() {
+        return puntosColorJ;
+    }
+
+    public void setPuntosColorJ(int[] puntosColorJ) {
+        this.puntosColorJ = puntosColorJ;
+    }
+    
+    public void agregarHijo(Nodo hijo){
+        hijos.add(hijo);
+    }
+
+    public int getContador() {
+        return contador;
+    }
+
+    public void setContador(int contador) {
+        this.contador = contador;
+    }
+    
+    public int getFila() {
+        return fila;
+    }
+
+    public void setFila(int fila) {
+        this.fila = fila;
+    }
+
+    public int getColumna() {
+        return columna;
+    }
+
+    public void setColumna(int columna) {
+        this.columna = columna;
+    }
+
+    public int getFicha() {
+        return ficha;
+    }
+
+    public void setFicha(int ficha) {
+        this.ficha = ficha;
+    }
+    
+    public ArrayList<ArrayList<Ficha>> getTablero() {
+        return tablero;
+    }
+
+    public void setTablero(ArrayList<ArrayList<Ficha>> tablero) {
+        this.tablero = tablero;
+    }
+
+    public int getProfundidad() {
+        return profundidad;
+    }
+
+    public void setProfundidad(int profundidad) {
+        this.profundidad = profundidad;
+    }
+
+    public Nodo getPadre() {
+        return padre;
+    }
+
+    public void setPadre(Nodo padre) {
+        this.padre = padre;
+    }
+
+    public ArrayList<Nodo> getHijos() {
+        return hijos;
+    }
+
+    public void setHijos(ArrayList<Nodo> hijos) {
+        this.hijos = hijos;
+    }
+
+    public int getPuntajeUtilidad() {
+        return puntajeUtilidad;
+    }
+
+    public void setPuntajeUtilidad(int puntajeUtilidad) {
+        this.puntajeUtilidad = puntajeUtilidad;
+    }
+
+    public int getTipoNodo() {
+        return tipoNodo;
+    }
+
+    public void setTipoNodo(int tipoNodo) {
+        if(tipoNodo == 1){
+            puntajeUtilidad = Integer.MIN_VALUE;
+        }else{
+            puntajeUtilidad = Integer.MAX_VALUE;
+        }
+        this.tipoNodo = tipoNodo;
+    }
+
+    public boolean isRevisado() {
+        return revisado;
+    }
+
+    public void setRevisado(boolean revisado) {
+        this.revisado = revisado;
     }
 }
