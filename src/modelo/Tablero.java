@@ -522,7 +522,7 @@ public class Tablero{
             }
         }
         //0 = superior izquierda, 1 = superior derecha, 2 = derecha, 3 = inferior derecha, 4 = inferior izquierda, 5 = izquierda
-        System.out.println("Ficha: "+fichaJugada.getFila() + "-"+ fichaJugada.getColumna()+" puntos:"+puntos);
+        //System.out.println("Ficha: "+fichaJugada.getFila() + "-"+ fichaJugada.getColumna()+" puntos:"+puntos);
         return puntos;
     }
 

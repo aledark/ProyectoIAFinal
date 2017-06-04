@@ -7,15 +7,10 @@ package vista;
 
 import controlador.Controlador;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Insets;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
 import modelo.Ficha;
 import modelo.Jugador;
 import modelo.Tablero;

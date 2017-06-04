@@ -4,22 +4,28 @@ import java.util.ArrayList;
 import modelo.Ficha;
 
 public class Nodo {
-    ArrayList<ArrayList<Ficha>> tablero;
     int profundidad;
     Nodo padre;
     ArrayList<Nodo> hijos;
     int puntajeUtilidad;
     int tipoNodo; //Min o Max
+    int ficha;
     int fila;
     int columna;
     int fila2;
     int columna2;
+    int fichaJ;
+    int filaJ;
+    int columnaJ;
+    int fila2J;
+    int columna2J;
     int puntosColorIA[];
     int puntosColorJ[];
+    boolean revisado;
+    int contador = 0;
     
     
     public Nodo(){
-        tablero = new  ArrayList<ArrayList<Ficha>>();
         profundidad = 0;
         padre = null;
         hijos = new ArrayList<Nodo>();
@@ -28,55 +34,25 @@ public class Nodo {
         revisado = false; 
         fila = 0;
         columna = 0;
+        fila2 = 0;
+        columna2 = 0;
         ficha = -1;
+        filaJ = 0;
+        columnaJ = 0;
+        fila2J = 0;
+        columna2J = 0;
+        fichaJ = -1;
     }
     
-    public int getFila2() {
-        return fila2;
-    }
-
-    public void setFila2(int fila2) {
-        this.fila2 = fila2;
-    }
-
-    public int getColumna2() {
-        return columna2;
-    }
-
-    public void setColumna2(int columna2) {
-        this.columna2 = columna2;
-    }
-    boolean revisado;
-    int ficha;
-    int contador = 0;
-
-    public int[] getPuntosColorIA() {
-        return puntosColorIA;
-    }
-
-    public void setPuntosColorIA(int[] puntosColorIA) {
-        this.puntosColorIA = puntosColorIA;
-    }
-
-    public int[] getPuntosColorJ() {
-        return puntosColorJ;
-    }
-
-    public void setPuntosColorJ(int[] puntosColorJ) {
-        this.puntosColorJ = puntosColorJ;
-    }
-    
-    public void agregarHijo(Nodo hijo){
-        hijos.add(hijo);
-    }
-    
-    public void actualizarPuntaje(int puntaje, int fila, int columna, int ficha){
+    public void actualizarPuntaje(int puntaje, int fila, int columna, int fila2, int columna2, int ficha){
         contador++;
         if(tipoNodo == 1){
             if(puntaje > puntajeUtilidad){
                 puntajeUtilidad = puntaje;
                 this.fila = fila;
                 this.columna = columna;
+                this.fila2 = fila2;
+                this.columna2 = columna2;
                 this.ficha = ficha;
             }
         }else{
@@ -84,105 +60,54 @@ public class Nodo {
                 puntajeUtilidad = puntaje;
                 this.fila = fila;
                 this.columna = columna;
+                this.fila2 = fila2;
+                this.columna2 = columna2;
                 this.ficha = ficha;
             }
         }
     }
 
-    public int getContador() {
-        return contador;
+    public int getFichaJ() {
+        return fichaJ;
     }
 
-    public void setContador(int contador) {
-        this.contador = contador;
-    }
-    
-    public int getFila() {
-        return fila;
+    public void setFichaJ(int fichaJ) {
+        this.fichaJ = fichaJ;
     }
 
-    public void setFila(int fila) {
-        this.fila = fila;
+    public int getFilaJ() {
+        return filaJ;
     }
 
-    public int getColumna() {
-        return columna;
+    public void setFilaJ(int filaJ) {
+        this.filaJ = filaJ;
     }
 
-    public void setColumna(int columna) {
-        this.columna = columna;
+    public int getColumnaJ() {
+        return columnaJ;
     }
 
-    public int getFicha() {
-        return ficha;
+    public void setColumnaJ(int columnaJ) {
+        this.columnaJ = columnaJ;
     }
 
-    public void setFicha(int ficha) {
-        this.ficha = ficha;
-    }
-    
-    public ArrayList<ArrayList<Ficha>> getTablero() {
-        return tablero;
+    public int getFila2J() {
+        return fila2J;
     }
 
-    public void setTablero(ArrayList<ArrayList<Ficha>> tablero) {
-        this.tablero = tablero;
+    public void setFila2J(int fila2J) {
+        this.fila2J = fila2J;
     }
 
-    public int getProfundidad() {
-        return profundidad;
+    public int getColumna2J() {
+        return columna2J;
     }
 
-    public void setProfundidad(int profundidad) {
-        this.profundidad = profundidad;
+    public void setColumna2J(int columna2J) {
+        this.columna2J = columna2J;
     }
 
-    public Nodo getPadre() {
-        return padre;
-    }
-
-    public void setPadre(Nodo padre) {
-        this.padre = padre;
-    }
-
-    public ArrayList<Nodo> getHijos() {
-        return hijos;
-    }
-
-    public void setHijos(ArrayList<Nodo> hijos) {
-        this.hijos = hijos;
-    }
-
-    public int getPuntajeUtilidad() {
-        return puntajeUtilidad;
-    }
-
-    public void setPuntajeUtilidad(int puntajeUtilidad) {
-        this.puntajeUtilidad = puntajeUtilidad;
-    }
-
-    public int getTipoNodo() {
-        return tipoNodo;
-    }
-
-    public void setTipoNodo(int tipoNodo) {
-        if(tipoNodo == 1){
-            puntajeUtilidad = Integer.MIN_VALUE;
-        }else{
-            puntajeUtilidad = Integer.MAX_VALUE;
-        }
-        this.tipoNodo = tipoNodo;
-    }
-
-    public boolean isRevisado() {
-        return revisado;
-    }
-
-    public void setRevisado(boolean revisado) {
-        this.revisado = revisado;
-    }
-
-    public int actualizarPuntajeFicha(Ficha fichaJugada) {
+    public int actualizarPuntajeFicha(Ficha fichaJugada, ArrayList<ArrayList<Ficha>> tablero) {
         int fila = fichaJugada.getFila();
         int columna = fichaJugada.getColumna();
         int puntos = 0;
@@ -390,5 +315,145 @@ public class Nodo {
     public void actualizarPuntajeJ(int color, int puntaje){
         puntosColorJ[color-1] += puntaje;
         if(puntosColorJ[color-1] > 18)  puntosColorJ[color-1] = 18;
+    }
+    
+    public int getFila2() {
+        return fila2;
+    }
+
+    public void setFila2(int fila2) {
+        this.fila2 = fila2;
+    }
+
+    public int getColumna2() {
+        return columna2;
+    }
+
+    public void setColumna2(int columna2) {
+        this.columna2 = columna2;
+    }
+
+    public int[] getPuntosColorIA() {
+        return puntosColorIA;
+    }
+
+    public void setPuntosColorIA(int[] puntosColorIA) {
+        this.puntosColorIA = puntosColorIA;
+    }
+
+    public int[] getPuntosColorJ() {
+        return puntosColorJ;
+    }
+
+    public void setPuntosColorJ(int[] puntosColorJ) {
+        this.puntosColorJ = puntosColorJ;
+    }
+    
+    public void agregarHijo(Nodo hijo){
+        hijos.add(hijo);
+    }
+
+    public int getContador() {
+        return contador;
+    }
+
+    public void setContador(int contador) {
+        this.contador = contador;
+    }
+    
+    public int getFila() {
+        return fila;
+    }
+
+    public void setFila(int fila) {
+        this.fila = fila;
+    }
+
+    public int getColumna() {
+        return columna;
+    }
+
+    public void setColumna(int columna) {
+        this.columna = columna;
+    }
+
+    public int getFicha() {
+        return ficha;
+    }
+
+    public void setFicha(int ficha) {
+        this.ficha = ficha;
+    }
+    
+    public int getProfundidad() {
+        return profundidad;
+    }
+
+    public void setProfundidad(int profundidad) {
+        this.profundidad = profundidad;
+    }
+
+    public Nodo getPadre() {
+        return padre;
+    }
+
+    public void setPadre(Nodo padre) {
+        this.padre = padre;
+    }
+
+    public ArrayList<Nodo> getHijos() {
+        return hijos;
+    }
+
+    public void setHijos(ArrayList<Nodo> hijos) {
+        this.hijos = hijos;
+    }
+
+    public int getPuntajeUtilidad() {
+        return puntajeUtilidad;
+    }
+
+    public void setPuntajeUtilidad(int puntajeUtilidad) {
+        this.puntajeUtilidad = puntajeUtilidad;
+    }
+
+    public int getTipoNodo() {
+        return tipoNodo;
+    }
+
+    public void setTipoNodo(int tipoNodo) {
+        if(tipoNodo == 1){
+            puntajeUtilidad = -1;
+        }else{
+            puntajeUtilidad = 400;
+        }
+        this.tipoNodo = tipoNodo;
+    }
+
+    public boolean isRevisado() {
+        return revisado;
+    }
+
+    public void setRevisado(boolean revisado) {
+        this.revisado = revisado;
+    }
+
+    public int calcularUtilidad() {
+        int utilidad = 0;
+        int menorIA = 19;
+        int menorJ = 19;
+        for (int i = 0; i < puntosColorIA.length; i++) {
+            utilidad += puntosColorIA[i];
+            utilidad -= puntosColorJ[i];
+            if(menorIA > puntosColorIA[i]) {
+                menorIA = puntosColorIA[i];
+            }
+            if(menorJ > puntosColorJ[i]){
+                menorJ = puntosColorJ[i];
+            }
+        }
+        utilidad = (utilidad/10) +  20*(menorIA-menorJ);
+        puntajeUtilidad = utilidad;
+        return utilidad;
     }
 }

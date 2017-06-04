@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import minMax.ArbolMinMax;
 import modelo.Ficha;
 import modelo.Jugador;
 import modelo.Tablero;
@@ -67,8 +68,15 @@ public class Controlador implements MouseListener{
                     fichaSeleccionada = null;
                     if(!juego.isGameOver()){           
                         //Jugador 2
-                        Ficha fichaSeleccionadaJ2 = juego.getJ2().getFichasActuales().get(0);
-                        int posicionesJ2[] = buscarEspacioLibre();
+                        ArbolMinMax siguienteJugada = new ArbolMinMax(juego.getTablero(), 2, juego.getJ2().getFichasActuales(),
+                                juego.getJ1().getFichasActuales(), juego.getPuntosJugador(2), juego.getPuntosJugador(1));
+                        siguienteJugada.funcionPrincipal();
+                        Ficha fichaSeleccionadaJ2 = juego.getJ2().getFichasActuales().get(siguienteJugada.getRaiz().getFicha());
+                        int posicionesJ2[] = new int[4];
+                        posicionesJ2[0] = siguienteJugada.getRaiz().getFila();
+                        posicionesJ2[1] = siguienteJugada.getRaiz().getColumna();
+                        posicionesJ2[2] = siguienteJugada.getRaiz().getFila2();
+                        posicionesJ2[3] = siguienteJugada.getRaiz().getColumna2();
                         fichaSeleccionadaJ2 = juego.getJ2().mover(fichaSeleccionadaJ2, posicionesJ2);
                         juego.getJ2().agregarFicha(juego.entregarFichaBolsa());
                         juego.agregarFichasAlTablero(fichaSeleccionadaJ2);
@@ -85,12 +93,19 @@ public class Controlador implements MouseListener{
                     }
                     if(juego.isGameOver()){
                         Jugador jugador = juego.jugadorGanador();
-                        if(jugador == null){
+                        if(jugador.equals(null)){
                             JOptionPane.showMessageDialog(panel, "Empate");
                         }else{
                             JOptionPane.showMessageDialog(panel, "El juego ha termnado, el ganador es: "+juego.jugadorGanador().getNombre());
                         }
                         seleccionarFichas = false;
+                        ArrayList<ArrayList<Ficha>> fichas = juego.getTablero();
+                        for (int i = 0; i < fichas.size(); i++) {
+                            for (int j = 0; j < fichas.get(i).size(); j++) {
+                                System.out.print(fichas.get(i).get(j).getColor()+" ");
+                            }
+                            System.err.println("");
+                        }
                     }
                 } 
             } 
@@ -100,14 +115,12 @@ public class Controlador implements MouseListener{
                 for (int i = 0; i < fichasJugador.size(); i++) {
                     if(e.getSource() == fichasJugador.get(i)){
                         fichaSeleccionada = fichasManoJugador.get(Math.floorDiv(i, 2));
-                        System.out.println("ficha seleccionada ");
                     }
                 }
             }     
         }
         else{
             lado = (lado+1)%6;
-            System.out.println(lado);
             mouseEntered(e);
         }
     }
@@ -430,7 +443,6 @@ public class Controlador implements MouseListener{
                 if(t.get(i).get(j).getColor() == 0){
                     posicionPareja = validarEspacio(t.get(i).get(j));
                     if(posicionPareja != null) encontrado = true;
-                    System.out.println("Ficha revisada:" + i + " "+j+" Se encontro pareja: "+encontrado);
                 }
             }
         }
@@ -438,8 +450,7 @@ public class Controlador implements MouseListener{
         j--;
         if(posicionPareja == null) return null;
         else {
-            int respuesta[] = {   i,j,posicionPareja[0], posicionPareja[1]};
-            System.out.println(i + " "+ j + " "+ posicionPareja[0] + " "+posicionPareja[1]);
+            int respuesta[] = {i,j,posicionPareja[0], posicionPareja[1]};
             return respuesta;
         }
     }
