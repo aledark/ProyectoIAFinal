@@ -22,6 +22,10 @@ public class Nodo {
     int puntosColorIA[];
     int puntosColorJ[];
     boolean revisado;
+<<<<<<< HEAD
+=======
+    int ficha;
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
     int contador = 0;
     
     
@@ -44,7 +48,11 @@ public class Nodo {
         fichaJ = -1;
     }
     
+<<<<<<< HEAD
     public void actualizarPuntaje(int puntaje, int fila, int columna, int fila2, int columna2, int ficha){
+=======
+    public void actualizarPuntaje(int puntaje, int fila, int columna, int ficha){
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
         contador++;
         if(tipoNodo == 1){
             if(puntaje > puntajeUtilidad){
@@ -67,6 +75,7 @@ public class Nodo {
         }
     }
 
+<<<<<<< HEAD
     public int getFichaJ() {
         return fichaJ;
     }
@@ -108,6 +117,9 @@ public class Nodo {
     }
 
     public int actualizarPuntajeFicha(Ficha fichaJugada, ArrayList<ArrayList<Ficha>> tablero) {
+=======
+    public int actualizarPuntajeFicha(Ficha fichaJugada) {
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
         int fila = fichaJugada.getFila();
         int columna = fichaJugada.getColumna();
         int puntos = 0;
@@ -385,6 +397,17 @@ public class Nodo {
         this.ficha = ficha;
     }
     
+<<<<<<< HEAD
+=======
+    public ArrayList<ArrayList<Ficha>> getTablero() {
+        return tablero;
+    }
+
+    public void setTablero(ArrayList<ArrayList<Ficha>> tablero) {
+        this.tablero = tablero;
+    }
+
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
     public int getProfundidad() {
         return profundidad;
     }
@@ -423,9 +446,15 @@ public class Nodo {
 
     public void setTipoNodo(int tipoNodo) {
         if(tipoNodo == 1){
+<<<<<<< HEAD
             puntajeUtilidad = -1;
         }else{
             puntajeUtilidad = 400;
+=======
+            puntajeUtilidad = Integer.MIN_VALUE;
+        }else{
+            puntajeUtilidad = Integer.MAX_VALUE;
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
         }
         this.tipoNodo = tipoNodo;
     }
@@ -437,6 +466,7 @@ public class Nodo {
     public void setRevisado(boolean revisado) {
         this.revisado = revisado;
     }
+<<<<<<< HEAD
 
     public int calcularUtilidad() {
         int utilidad = 0;
@@ -456,4 +486,6 @@ public class Nodo {
         puntajeUtilidad = utilidad;
         return utilidad;
     }
+=======
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
 }

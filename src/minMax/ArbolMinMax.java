@@ -182,6 +182,7 @@ public class ArbolMinMax {
         }
     }
     
+<<<<<<< HEAD
     public void agregarNodo(Nodo nodo){
         boolean nodoIngresado = false;
         for (int i = 0; i < colaPrioridad.size() && !nodoIngresado; i++) {
@@ -195,6 +196,8 @@ public class ArbolMinMax {
         }
     }
     
+=======
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
     public ArrayList<int[]> posiblesPosiciones(ArrayList<ArrayList<Ficha>> t) {
         ArrayList<int[]> respuesta = new ArrayList<int[]>();
         for(int i = 0; i < 5; i++){
@@ -210,16 +213,24 @@ public class ArbolMinMax {
     public void validarEspacio(Ficha ficha, ArrayList<ArrayList<Ficha>> tablero, ArrayList<int[]> respuesta){
         int fila = ficha.getFila();
         int columna = ficha.getColumna();
+        int posiciones [] = new int[4];
         if(fila <= 4){
             //Revisar superior izquierda
             if(fila > 0 && columna > 0){    
                 if(tablero.get(fila-1).get(columna-1).getColor()==0){
+<<<<<<< HEAD
                     int posiciones [] = new int[4];
                     //System.out.println("Superior izquierda " + fila + " " + columna +" "+(fila-1) + " " + (columna-1));
                     posiciones[2] = fila-1;
                     posiciones[3] = columna-1;
                     posiciones[0] = fila;
                     posiciones[1] = columna;
+=======
+                    posiciones[0] = fila-1;
+                    posiciones[1] = columna-1;
+                    posiciones[2] = fila;
+                    posiciones[3] = columna;
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
                     respuesta.add(posiciones);
                 }
             }
@@ -227,9 +238,15 @@ public class ArbolMinMax {
             if(fila > 0){
                 if(columna < tablero.get(fila-1).size()){
                      if(tablero.get(fila-1).get(columna).getColor() == 0){
+<<<<<<< HEAD
                         int posiciones [] = new int[4];
                         //System.out.println("superior derecha "+ fila + " " + columna + " "+ (fila-1) + " " + columna);
                         posiciones[2] = fila-1;
+=======
+                        posiciones[0] = fila-1;
+                        posiciones[1] = columna;
+                        posiciones[2] = fila;
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
                         posiciones[3] = columna;
                         posiciones[0] = fila;
                         posiciones[1] = columna;
@@ -240,8 +257,13 @@ public class ArbolMinMax {
             //Revisar Izquierda
             if(columna > 0){
                 if(tablero.get(fila).get(columna-1).getColor() == 0){
+<<<<<<< HEAD
                     int posiciones [] = new int[4];
                     //System.out.println("Izquierda " +fila + " " + columna + " " + fila + " " + (columna-1));
+=======
+                    posiciones[0] = fila;
+                    posiciones[1] = columna-1;
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
                     posiciones[2] = fila;
                     posiciones[3] = columna-1;
                     posiciones[0] = fila;
@@ -252,9 +274,15 @@ public class ArbolMinMax {
             //Revisar inferior izquierda
             if(fila+1 < tablero.size() && columna < tablero.get(fila).size()){
                 if(tablero.get(fila+1).get(columna).getColor() == 0){
+<<<<<<< HEAD
                     int posiciones [] = new int[4];
                     //System.out.println("Inferior izquierda "+ fila + " " + columna + " "+ (fila+1) + " " + columna);
                     posiciones[2] = fila+1;
+=======
+                    posiciones[0] = fila+1;
+                    posiciones[1] = columna;
+                    posiciones[2] = fila;
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
                     posiciones[3] = columna;
                     posiciones[0] = fila;
                     posiciones[1] = columna;
@@ -264,20 +292,32 @@ public class ArbolMinMax {
             //Revisar inferior derecha
             if(fila+1 < tablero.size() && columna < tablero.get(fila).size()){
                 if(tablero.get(fila+1).get(columna+1).getColor() == 0){
+<<<<<<< HEAD
                     int posiciones [] = new int[4];
                     //System.out.println("Inferior derecha " + fila + " " + columna + " "+ (fila+1) + " " + (columna+1));
                     posiciones[2] = fila+1;
                     posiciones[3] = columna+1;
                     posiciones[0] = fila;
                     posiciones[1] = columna;
+=======
+                    posiciones[0] = fila+1;
+                    posiciones[1] = columna+1;
+                    posiciones[2] = fila;
+                    posiciones[3] = columna;
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
                     respuesta.add(posiciones);
                 }
             }
             //Revisar  derecha
             if(columna+1 < tablero.get(fila).size()){
                 if(tablero.get(fila).get(columna+1).getColor() == 0){
+<<<<<<< HEAD
                     int posiciones [] = new int[4];
                     //System.out.println("Derecha "+ fila + " " + columna + " " + fila + " " + (columna+1));
+=======
+                    posiciones[0] = fila;
+                    posiciones[1] = columna+1;
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
                     posiciones[2] = fila;
                     posiciones[3] = columna+1;
                     posiciones[0] = fila;
@@ -290,9 +330,15 @@ public class ArbolMinMax {
             //Revisar superior izquierda
             if(fila > 0 && columna >= 0){
                 if(tablero.get(fila-1).get(columna).getColor() == 0){
+<<<<<<< HEAD
                     int posiciones [] = new int[4];
                     //System.out.println("Superior izquierda " + fila + " " + columna +" "+(fila-1) + " " + columna);
                     posiciones[2] = fila-1;
+=======
+                    posiciones[0] = fila-1;
+                    posiciones[1] = columna;
+                    posiciones[2] = fila;
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
                     posiciones[3] = columna;
                     posiciones[0] = fila;
                     posiciones[1] = columna;
@@ -303,12 +349,19 @@ public class ArbolMinMax {
             if(fila > 0 && columna < tablero.get(fila).size()){
                 if(columna+1 < tablero.get(fila-1).size()){
                     if(tablero.get(fila-1).get(columna+1).getColor() == 0){
+<<<<<<< HEAD
                         int posiciones [] = new int[4];
                         //System.out.println("Superior derecha " + fila + " " + columna +" "+(fila-1) + " " + (columna+1));
                         posiciones[2] = fila-1;
                         posiciones[3] = columna+1;
                         posiciones[0] = fila;
                         posiciones[1] = columna;
+=======
+                        posiciones[0] = fila-1;
+                        posiciones[1] = columna+1;
+                        posiciones[2] = fila;
+                        posiciones[3] = columna;
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
                         respuesta.add(posiciones);
                     }
                 }
@@ -316,8 +369,13 @@ public class ArbolMinMax {
             //Revisar Izquierda
             if(columna > 0){
                 if(tablero.get(fila).get(columna-1).getColor() == 0){
+<<<<<<< HEAD
                     int posiciones [] = new int[4];
                     //System.out.println("Izquierda " + fila + " " + columna +" "+fila + " " + (columna-1));
+=======
+                    posiciones[0] = fila;
+                    posiciones[1] = columna-1;
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
                     posiciones[2] = fila;
                     posiciones[3] = columna-1;
                     posiciones[0] = fila;
@@ -328,12 +386,19 @@ public class ArbolMinMax {
             //Revisar inferior izquierda
             if(fila+1 < tablero.size() && columna > 0){
                 if(tablero.get(fila+1).get(columna-1).getColor() == 0){
+<<<<<<< HEAD
                     int posiciones [] = new int[4];
                     //System.out.println("Inferior izquierda " + fila + " " + columna +" "+(fila+1) + " " + (columna-1));
                     posiciones[2] = fila+1;
                     posiciones[3] = columna-1;
                     posiciones[0] = fila;
                     posiciones[1] = columna;
+=======
+                    posiciones[0] = fila+1;
+                    posiciones[1] = columna-1;
+                    posiciones[2] = fila;
+                    posiciones[3] = columna;
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
                     respuesta.add(posiciones);
                 }
             }
@@ -341,9 +406,15 @@ public class ArbolMinMax {
             if(fila+1 < tablero.size()){
                 if(columna < tablero.get(fila+1).size()){
                     if(tablero.get(fila+1).get(columna).getColor() == 0){
+<<<<<<< HEAD
                         int posiciones [] = new int[4];
                         //System.out.println("Inferior derecha " + fila + " " + columna +" "+(fila+1) + " " + columna);
                         posiciones[2] = fila+1;
+=======
+                        posiciones[0] = fila+1;
+                        posiciones[1] = columna;
+                        posiciones[2] = fila;
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
                         posiciones[3] = columna;
                         posiciones[0] = fila;
                         posiciones[1] = columna;
@@ -354,8 +425,13 @@ public class ArbolMinMax {
             //Revisar  derecha
             if(columna+1 < tablero.get(fila).size()){
                 if(tablero.get(fila).get(columna+1).getColor() == 0) {
+<<<<<<< HEAD
                     int posiciones [] = new int[4];
                     //System.out.println("Dereccha " + fila + " " + columna +" "+fila + " " + (columna+1));
+=======
+                    posiciones[0] = fila;
+                    posiciones[1] = columna+1;
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
                     posiciones[2] = fila;
                     posiciones[3] = columna+1;
                     posiciones[0] = fila;
@@ -368,12 +444,19 @@ public class ArbolMinMax {
             //Revisar superior izquierda
             if(fila > 0 && columna > 0){    
                 if(tablero.get(fila-1).get(columna-1).getColor()==0){
+<<<<<<< HEAD
                     int posiciones [] = new int[4];
                     //System.out.println("Superior izquierda " + fila + " " + columna +" "+(fila-1) + " " + (columna-1));
                     posiciones[2] = fila-1;
                     posiciones[3] = columna-1;
                     posiciones[0] = fila;
                     posiciones[1] = columna;
+=======
+                    posiciones[0] = fila-1;
+                    posiciones[1] = columna-1;
+                    posiciones[2] = fila;
+                    posiciones[3] = columna;
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
                     respuesta.add(posiciones);
                 }
             }
@@ -381,9 +464,15 @@ public class ArbolMinMax {
             if(fila > 0){
                 if(columna < tablero.get(fila-1).size()){
                     if(tablero.get(fila-1).get(columna).getColor() == 0){
+<<<<<<< HEAD
                         int posiciones [] = new int[4];
                         //System.out.println("Superior derecha " + fila + " " + columna +" "+(fila-1) + " " + columna);
                         posiciones[2] = fila-1;
+=======
+                        posiciones[0] = fila-1;
+                        posiciones[1] = columna;
+                        posiciones[2] = fila;
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
                         posiciones[3] = columna;
                         posiciones[0] = fila;
                         posiciones[1] = columna;
@@ -394,8 +483,13 @@ public class ArbolMinMax {
             //Revisar Izquierda
             if(columna > 0){
                 if(tablero.get(fila).get(columna-1).getColor() == 0){
+<<<<<<< HEAD
                     int posiciones [] = new int[4];
                     //System.out.println("Izquierda " + fila + " " + columna +" "+fila + " " + (columna-1));
+=======
+                    posiciones[0] = fila;
+                    posiciones[1] = columna-1;
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
                     posiciones[2] = fila;
                     posiciones[3] = columna-1;
                     posiciones[0] = fila;
@@ -406,12 +500,19 @@ public class ArbolMinMax {
             //Revisar inferior izquierda
             if(fila+1 < tablero.size() && columna > 0){
                 if(tablero.get(fila+1).get(columna-1).getColor() == 0){
+<<<<<<< HEAD
                     int posiciones [] = new int[4];
                     //System.out.println("Inferior izquierda " + fila + " " + columna +" "+(fila+1) + " " + (columna-1));
                     posiciones[2] = fila+1;
                     posiciones[3] = columna-1;
                     posiciones[0] = fila;
                     posiciones[1] = columna;
+=======
+                    posiciones[0] = fila+1;
+                    posiciones[1] = columna-1;
+                    posiciones[2] = fila;
+                    posiciones[3] = columna;
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
                     respuesta.add(posiciones);
                 }
             }
@@ -419,9 +520,15 @@ public class ArbolMinMax {
             if(fila+1 < tablero.size()){
                 if(columna < tablero.get(fila+1).size()){
                     if(tablero.get(fila+1).get(columna).getColor() == 0){
+<<<<<<< HEAD
                         int posiciones [] = new int[4];
                         //System.out.println("Inferior derecha " + fila + " " + columna +" "+(fila+1) + " " + columna);
                         posiciones[2] = fila+1;
+=======
+                        posiciones[0] = fila+1;
+                        posiciones[1] = columna;
+                        posiciones[2] = fila;
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
                         posiciones[3] = columna;
                         posiciones[0] = fila;
                         posiciones[1] = columna;
@@ -432,8 +539,13 @@ public class ArbolMinMax {
             //Revisar  derecha
             if(columna+1 < tablero.get(fila).size()){
                 if(tablero.get(fila).get(columna+1).getColor() == 0){
+<<<<<<< HEAD
                     int posiciones [] = new int[4];
                     //System.out.println("Derecha " + fila + " " + columna +" "+ fila + " " + (columna+1));
+=======
+                    posiciones[0] = fila;
+                    posiciones[1] = columna+1;
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
                     posiciones[2] = fila;
                     posiciones[3] = columna+1;
                     posiciones[0] = fila;
@@ -468,6 +580,17 @@ public class ArbolMinMax {
         this.actual = actual;
     }
 
+<<<<<<< HEAD
+=======
+    public ArrayList<ArrayList<Ficha>> getTablero() {
+        return tablero;
+    }
+
+    public void setTablero(ArrayList<ArrayList<Ficha>> tablero) {
+        this.tablero = tablero;
+    }
+
+>>>>>>> c023aaa433f2b7c7ab092ad598697b5ec3a337bb
     public int getLimiteProfundidad() {
         return limiteProfundidad;
     }
